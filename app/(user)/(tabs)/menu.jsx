@@ -1,5 +1,4 @@
 import { Text, View } from "react-native"
-import MapView from "../../../components/map-view"
 
 const location = {
   id: "1",
@@ -14,7 +13,7 @@ const location = {
 const Menu = () => {
   return (
     <View style={{ flex: 1 }}>
-      <MapView center={location} />
+
     </View>
   )
 }
