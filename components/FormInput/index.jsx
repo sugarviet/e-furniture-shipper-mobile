@@ -1,10 +1,14 @@
 import { Text, TextInput, View } from "react-native";
 import { Controller } from "react-hook-form";
 import { classNames } from "../../utils/classNames";
+import Icon from "../Icon";
+import { IMAGES } from "../../constants/image";
+import ErrorMessage from "../ErrorMessage";
 
 const TYPE = {
   username: {
     placeholder: "username",
+    icon: IMAGES.user,
     rules: () => ({
       required: "Please enter the username",
       pattern: {
@@ -15,6 +19,7 @@ const TYPE = {
   },
   password: {
     placeholder: "password",
+    icon: IMAGES.padlock,
     isSecure: true,
     rules: () => ({
       required: "Please enter the password",
@@ -41,22 +46,21 @@ function FormInput({ type, control }) {
         <View>
           <View
             className={classNames(
-              "p-2 h-12 bg-gray-100 rounded-md my-2 border-[1px] justify-center",
+              "p-2 h-12 bg-gray-100 rounded-md my-2 border-[1px] flex-row items-center",
               error ? "border-rose-500" : "border-transparent"
             )}
           >
+            <Icon className="w-6 h-6 mr-2" source={TYPE[type].icon} />
             <TextInput
+              className="flex-1"
               placeholder={TYPE[type].placeholder}
-              placeholderTextColor="#4B4B4B"
               value={value}
               editable={TYPE[type].editable}
               onChangeText={onChange}
               onBlur={onBlur}
             />
           </View>
-          {error && (
-            <Text className="text-rose-500 text-xs">{error.message}</Text>
-          )}
+          {error && <ErrorMessage message={error.message} />}
         </View>
       )}
     />
