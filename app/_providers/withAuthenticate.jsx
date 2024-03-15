@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { router } from "expo-router";
-import { useAuth } from "../../stores/useAuth";
+import { useAuthStore } from "../../stores/useAuthStore";
 
 const withAuthenticate = (WrappedComponent) => {
   return () => {
-    const { token } = useAuth();
-    
+    const { token } = useAuthStore();
+
     useEffect(() => {
       if (!token) return router.replace("/sign-in");
       return router.replace("/");
