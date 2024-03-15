@@ -1,46 +1,25 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
-import { useAuth } from "../../stores/useAuth";
-import { router } from "expo-router";
+import { Text, View } from "react-native";
+import ContentContainer from "../../components/ContentContainer";
+import SignInForm from "../../components/SignInForm";
+
+import styles from "../global.style";
 
 const SignIn = () => {
- 
-  const { setToken } = useAuth();
-
-  const handleLogin = (data) => {
-    console.log(data);
-    setToken("ok ku");
-    router.replace("/home");
-  };
-
   return (
-    <View style={styles.container}>
-      <Text>Sign in</Text>
-    </View>
+    <ContentContainer>
+      <Text
+        style={[styles.title_lg, styles.margin_col_sm, { textAlign: "center" }]}
+      >
+        E_FURNITURE LOGO
+      </Text>
+      <View style={{ justifyContent: "center" }}>
+        <Text style={[styles.title_md, styles.text_color("#4B4B4B")]}>
+          Sign in to continue your delivery jobs
+        </Text>
+        <SignInForm />
+      </View>
+    </ContentContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-    color: "white",
-    marginTop: 40,
-  },
-  input: {
-    width: "100%",
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  button: {
-    width: "100%",
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: "blue",
-    color: "white",
-  },
-});
 
 export default SignIn;
