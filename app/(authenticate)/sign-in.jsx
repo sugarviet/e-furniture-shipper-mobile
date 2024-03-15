@@ -1,24 +1,18 @@
-import { Text, View } from "react-native";
-import ContentContainer from "../../components/ContentContainer";
+import { SafeAreaView, Text, View } from "react-native";
 import SignInForm from "../../components/SignInForm";
-
-import styles from "../global.style";
+import AnimationView from "../../components/AnimationView";
+import { ANIMATIONS } from "../../constants/animations";
 
 const SignIn = () => {
   return (
-    <ContentContainer>
-      <Text
-        style={[styles.title_lg, styles.margin_col_sm, { textAlign: "center" }]}
-      >
-        E_FURNITURE LOGO
-      </Text>
-      <View style={{ justifyContent: "center" }}>
-        <Text style={[styles.title_md, styles.text_color("#4B4B4B")]}>
-          Sign in to continue your delivery jobs
-        </Text>
+    <View className="flex-1 bg-black">
+      <SafeAreaView className="items-center">
+        <AnimationView width={320} height={320} source={ANIMATIONS.delivery} />
+      </SafeAreaView>
+      <View className="bg-white flex-1 rounded-l-[50em] rounded-r-[50em] px-4 py-12">
         <SignInForm />
       </View>
-    </ContentContainer>
+    </View>
   );
 };
 

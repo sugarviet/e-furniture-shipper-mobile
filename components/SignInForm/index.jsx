@@ -12,12 +12,12 @@ function SignInForm() {
 
   return (
     <View>
-      <View style={{ marginVertical: 12 }}>
+      <View>
         <FormInput type="username" control={control} />
         <FormInput type="password" control={control} />
       </View>
 
-      <LinkableButton handlePress={handleSubmit(onSubmit)}>
+      <LinkableButton className="mt-4" handlePress={handleSubmit(onSubmit)}>
         Sign in
       </LinkableButton>
     </View>
