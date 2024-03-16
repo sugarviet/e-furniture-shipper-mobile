@@ -13,7 +13,7 @@ const SignIn = () => {
         </View>
         <AnimationView className="w-72 h-72" source={ANIMATIONS.delivery} />
       </SafeAreaView>
-      <View className="bg-white flex-1 rounded-l-[50em] rounded-r-[50em] px-4 py-8">
+      <View className="bg-white flex-1 rounded-tl-3xl rounded-tr-3xl px-4 py-8">
         <Text className="text-2xl font-bold mb-4 text-gray-700 text-center">
           Let's Get Started!
         </Text>
