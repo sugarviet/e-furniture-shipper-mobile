@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 function DeliveryScreen() {
   return (
     <View>
-      <Text>Delivery</Text>
+      <Text>Delivery Screen</Text>
     </View>
   );
 }
