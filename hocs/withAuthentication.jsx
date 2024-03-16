@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useAuthStore } from "../stores/useAuthStore";
-import { router } from "expo-router";
 import useNavigation from "../hooks/useNavigation";
 
 function withAuthentication(Screen) {
