@@ -1,12 +1,7 @@
-import { Text, View } from "react-native"
+import { Text, View } from "react-native";
 
+const HomeScreen = () => {
+  return <View style={{ flex: 1 }}></View>;
+};
 
-const Home = () => {
-  return (
-    <View style={{ flex: 1 }}>
-   
-    </View>
-  )
-}
-
-export default Home
+export default HomeScreen;
