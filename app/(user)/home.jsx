@@ -1,5 +1,4 @@
-import { SafeAreaView, Text, View } from "react-native";
-import ShipmentCard from "../../components/ShipmentCard";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import ShipmentTrackingCard from "../../components/ShipmentTrackingCard";
 import ShipmentHistory from "../../components/ShipmentHistory";
 import PickUpPackage from "../../components/PickUpPackage";
@@ -20,10 +19,12 @@ function HomeScreen() {
           <PickUpPackage />
         </View>
       </SafeAreaView>
-      <View className="flex-1 bg-white px-8 py-4">
+      <ScrollView className="flex-1 bg-white px-8 pt-4">
         <ShipmentTrackingCard />
-        <ShipmentHistory />
-      </View>
+        <View className="pb-12">
+          <ShipmentHistory />
+        </View>
+      </ScrollView>
     </View>
   );
 }
