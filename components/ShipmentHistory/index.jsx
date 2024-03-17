@@ -7,7 +7,10 @@ function ShipmentHistory() {
       <Text className="text-lg font-bold tracking-wider mb-2">
         Order is being delivered
       </Text>
-      <ShipmentCard />
+      <ShipmentCard status="delivery" />
+      <ShipmentCard status="fail" />
+      <ShipmentCard status="success" />
+      <ShipmentCard status="delivery" />
     </View>
   );
 }

@@ -7,15 +7,22 @@ const STATUS_PROPS = {
   delivery: {
     className: "bg-orange-500",
     label: "in-delivery",
+    icon: IMAGES.delivery_truck,
   },
   success: {
     className: "bg-green-500",
     label: "success",
+    icon: IMAGES.checked,
+  },
+  fail: {
+    className: "bg-rose-500",
+    label: "fail",
+    icon: IMAGES.goods_return,
   },
 };
 
 function StatusTracking({ status }) {
-  const { className, label } = STATUS_PROPS[status];
+  const { className, label, icon } = STATUS_PROPS[status];
   return (
     <Text className="my-1">
       <View
@@ -24,11 +31,7 @@ function StatusTracking({ status }) {
           className
         )}
       >
-        <Icon
-          className="w-3 h-3 mr-1"
-          source={IMAGES.delivery_truck}
-          tintColor="#fff"
-        />
+        <Icon className="w-3 h-3 mr-1" source={icon} tintColor="#fff" />
         <Text className="text-white font-semibold text-[10px]">{label}</Text>
       </View>
     </Text>
