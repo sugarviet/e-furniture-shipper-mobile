@@ -17,9 +17,7 @@ function HomeScreen() {
           <ShipmentTrackingCard />
         </View>
       </SafeAreaView>
-      <View className="flex-1 bg-white p-8">
-        <ShipmentTrackingCard />
-      </View>
+      <View className="flex-1 bg-white p-8"></View>
     </View>
   );
 }
