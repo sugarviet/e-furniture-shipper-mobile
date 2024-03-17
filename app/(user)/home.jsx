@@ -1,5 +1,8 @@
 import { SafeAreaView, Text, View } from "react-native";
+import ShipmentCard from "../../components/ShipmentCard";
 import ShipmentTrackingCard from "../../components/ShipmentTrackingCard";
+import ShipmentHistory from "../../components/ShipmentHistory";
+import PickUpPackage from "../../components/PickUpPackage";
 
 function HomeScreen() {
   return (
@@ -14,10 +17,13 @@ function HomeScreen() {
               Keep track your goods
             </Text>
           </View>
-          <ShipmentTrackingCard />
+          <PickUpPackage />
         </View>
       </SafeAreaView>
-      <View className="flex-1 bg-white p-8"></View>
+      <View className="flex-1 bg-white px-8 py-4">
+        <ShipmentTrackingCard />
+        <ShipmentHistory />
+      </View>
     </View>
   );
 }
