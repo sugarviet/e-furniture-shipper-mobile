@@ -8,5 +8,6 @@ import goods from '../assets/images/goods.png'
 import right_arrow from '../assets/images/right-arrow.png'
 import truck_3d from '../assets/images/3d-truck.png'
 import back_arrow from '../assets/images/back-arrow.png'
+import open_package from '../assets/images/open-package.png'
 
-export const IMAGES = { back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };
+export const IMAGES = { open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };

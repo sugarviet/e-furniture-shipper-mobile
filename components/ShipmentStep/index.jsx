@@ -4,6 +4,8 @@ import StepIndicator from "react-native-step-indicator";
 import { COLORS } from "../../constants/color";
 import Icon from "../Icon";
 import { IMAGES } from "../../constants/image";
+import AnimationView from "../AnimationView";
+import { ANIMATIONS } from "../../constants/animations";
 
 const labels = [
   "Address 1, District 1",
@@ -39,13 +41,11 @@ function ShipmentStep() {
   return (
     <View className="mt-4">
       <StepIndicator
-        renderStepIndicator={({ position }) => (
-          <Icon
-            className="w-4 h-4"
-            tintColor={step === position ? COLORS.primary : "transparent"}
-            source={IMAGES.delivery_truck}
-          />
-        )}
+        renderStepIndicator={({ position }) => {
+          return position === step ? (
+            <AnimationView className="w-10 h-10" source={ANIMATIONS.delivery} />
+          ) : null;
+        }}
         stepCount={labels.length}
         labels={labels}
         currentPosition={step}

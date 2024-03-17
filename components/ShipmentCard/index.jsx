@@ -8,7 +8,7 @@ import StatusTracking from "../StatusTracking";
 
 function ShipmentCard() {
   return (
-    <View className="flex-row items-center bg-teal-50 rounded-xl px-4 py-2 shadow-md shadow-gray-800">
+    <View className="flex-row items-center bg-white rounded-xl px-4 py-2 shadow-lg shadow-slate-300">
       <View className="flex-1">
         <StatusTracking status="delivery" />
         <Text className="font-bold tracking-tighter">#CODE2706</Text>
