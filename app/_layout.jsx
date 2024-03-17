@@ -1,10 +1,15 @@
-import { Slot } from "expo-router"
-import { withProviders } from "./_providers"
+import { Slot } from "expo-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import withAuthentication from "../hocs/withAuthentication";
 
 const RootLayout = () => {
-  return (
-    <Slot />
-  )
-}
+  const queryClient = new QueryClient();
 
-export default withProviders(RootLayout)
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Slot />
+    </QueryClientProvider>
+  );
+};
+
+export default withAuthentication(RootLayout);
