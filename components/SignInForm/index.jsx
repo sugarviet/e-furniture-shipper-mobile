@@ -2,12 +2,14 @@ import { View } from "react-native";
 import { useForm } from "react-hook-form";
 import LinkableButton from "../LinkableButton";
 import FormInput from "../FormInput";
+import useAuth from "../../hooks/useAuth";
 
 function SignInForm() {
   const { control, handleSubmit } = useForm();
+  const { signIn } = useAuth();
 
   const onSubmit = (data) => {
-    const { username, password } = data;
+    signIn(data);
   };
 
   return (
