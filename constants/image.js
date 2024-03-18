@@ -13,5 +13,6 @@ import checked from '../assets/images/checked.png'
 import goods_return from '../assets/images/goods-return.png'
 import goods_delivered from '../assets/images/goods-delivered.png'
 import goods_return_3d from '../assets/images/goods-return-3d.png'
+import home_marker from '../assets/images/home-marker.png'
 
-export const IMAGES = { goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };
+export const IMAGES = { home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };

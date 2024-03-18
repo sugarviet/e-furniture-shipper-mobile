@@ -5,7 +5,7 @@ function HeaderButton({ className, source, onPress }) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-emerald-600 p-2 rounded-tr-2xl rounded-bl-2xl"
+      className="bg-emerald-600 p-2 rounded-md"
     >
       <Icon tintColor="white" className={className} source={source} />
     </TouchableOpacity>
