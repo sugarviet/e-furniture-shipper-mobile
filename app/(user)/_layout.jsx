@@ -1,10 +1,15 @@
 import { Stack } from "expo-router";
-import HeaderButton from "../../components/HeaderButton";
+import { useEffect } from "react";
+import { useAuthStore } from "../../stores/useAuthStore";
 import useNavigation from "../../hooks/useNavigation";
-import { IMAGES } from "../../constants/image";
 
 const UserLayout = () => {
-  const { go_back } = useNavigation();
+  const { token } = useAuthStore();
+  const { go_to_sign_in } = useNavigation();
+
+  useEffect(() => {
+    if (!token) return go_to_sign_in();
+  }, []);
 
   return (
     <Stack

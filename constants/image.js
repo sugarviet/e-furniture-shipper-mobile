@@ -14,5 +14,9 @@ import goods_return from '../assets/images/goods-return.png'
 import goods_delivered from '../assets/images/goods-delivered.png'
 import goods_return_3d from '../assets/images/goods-return-3d.png'
 import home_marker from '../assets/images/home-marker.png'
+import delivery_man from '../assets/images/delivery-man.png'
+import logout from '../assets/images/logout.png'
+import time from '../assets/images/time.png'
+import pending_order from '../assets/images/pending-order.png'
 
-export const IMAGES = { home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };
+export const IMAGES = { pending_order, time, logout, delivery_man, home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };

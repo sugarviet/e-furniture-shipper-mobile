@@ -1,16 +1,24 @@
 import { Text, View } from "react-native";
 import ShipmentCard from "../ShipmentCard";
+import { useFetchAuth } from "../../hooks/api-hooks";
+import { get_pending_orders_api } from "../../api/orderApi";
 
 function ShipmentHistory() {
+  const { data, isLoading } = useFetchAuth(get_pending_orders_api());
+
+  if (isLoading) return null;
+
   return (
     <View className="my-2">
-      <Text className="text-lg font-bold tracking-wider mb-2">
-        Order is being delivered
-      </Text>
-      <ShipmentCard status="delivery" />
-      <ShipmentCard status="fail" />
-      <ShipmentCard status="success" />
-      <ShipmentCard status="delivery" />
+      <View className="flex-row justify-between items-center  mb-2">
+        <Text className="text-lg font-bold tracking-wider">
+          Recent shipment
+        </Text>
+        <Text className="text-gray-500 text-xs">{`(${data.data.length})`}</Text>
+      </View>
+      {data.data.map((order, i) => (
+        <ShipmentCard key={i} order={order} status="pending" />
+      ))}
     </View>
   );
 }

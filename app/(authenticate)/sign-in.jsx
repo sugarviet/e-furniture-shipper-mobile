@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { KeyboardAvoidingView, SafeAreaView, Text, View } from "react-native";
 import SignInForm from "../../components/SignInForm";
 import AnimationView from "../../components/AnimationView";
 import { ANIMATIONS } from "../../constants/animations";

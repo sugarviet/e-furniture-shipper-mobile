@@ -3,7 +3,7 @@ import Icon from "../Icon";
 import { IMAGES } from "../../constants/image";
 import { formatCurrency } from "../../utils/formatCurrency";
 
-function ShipmentBriefInfo() {
+function ShipmentBriefInfo({ total, code }) {
   return (
     <View className="flex-row items-center">
       <Icon className="w-10 h-10 mr-2" source={IMAGES.truck_3d} />
@@ -12,7 +12,7 @@ function ShipmentBriefInfo() {
           #CODE2706
         </Text>
         <Text className="text-xs text-teal-600 font-bold">
-          {formatCurrency(10000000)}
+          {formatCurrency(total)}
         </Text>
       </View>
     </View>

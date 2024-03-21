@@ -9,6 +9,7 @@ const TYPE = {
   username: {
     placeholder: "username",
     icon: IMAGES.user,
+    isSecure: false,
     rules: () => ({
       required: "Please enter the username",
       pattern: {
@@ -58,6 +59,7 @@ function FormInput({ type, control }) {
               editable={TYPE[type].editable}
               onChangeText={onChange}
               onBlur={onBlur}
+              secureTextEntry={TYPE[type].isSecure}
             />
           </View>
           {error && <ErrorMessage message={error.message} />}
