@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { API } from '../../api/utils';
+import { API, USER_API } from '../../api/utils';
 
 const fetcher = async (url, params) => {
-  const data = await axios.get(url, { params: params })
+  const data = await USER_API(url, { params: params })
     .then((response) => response.data)
     .then((data) => data.metaData);
 
@@ -11,7 +11,7 @@ const fetcher = async (url, params) => {
 };
 
 
-export const useFetch = (url, params, enabled) => {
+export const useFetchAuth = (url, params, enabled) => {
   return useQuery([url, params], () => fetcher(url, params), {
     enabled
   });
@@ -47,6 +47,17 @@ export const useDelete = (url, params, onSuccessAPI = () => { }, onErrorAPI = ()
 export const usePost = (url, params, onSuccessAPI = () => { }, onErrorAPI = () => { }, key) => {
   return useGenericMutation(
     async (data) => await API.post(url, data).then((response) => response.data)
+      .then((data) => data.metaData),
+    key,
+    params,
+    onSuccessAPI,
+    onErrorAPI
+  );
+};
+
+export const usePostAuth = (url, params, onSuccessAPI = () => { }, onErrorAPI = () => { }, key) => {
+  return useGenericMutation(
+    async (data) => await USER_API.post(url, data).then((response) => response.data)
       .then((data) => data.metaData),
     key,
     params,

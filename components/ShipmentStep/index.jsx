@@ -1,18 +1,10 @@
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import { COLORS } from "../../constants/color";
-import Icon from "../Icon";
-import { IMAGES } from "../../constants/image";
 import AnimationView from "../AnimationView";
 import { ANIMATIONS } from "../../constants/animations";
 
-const labels = [
-  "Address 1, District 1",
-  "Address 2, District 2",
-  "Address 3, District 3",
-  "Address 4, District 4",
-];
 const customStyles = {
   stepIndicatorSize: 15,
   currentStepIndicatorSize: 35,
@@ -36,8 +28,13 @@ const customStyles = {
   currentStepLabelColor: COLORS.primary,
 };
 
-function ShipmentStep() {
-  const [step, setStep] = useState(1);
+function ShipmentStep({ orderShippings }) {
+  const [step, setStep] = useState(0);
+
+  const labels = orderShippings.map((order) => {
+    const { address, district, ward } = order;
+    return `${address} ${district} ${ward}`;
+  });
   return (
     <View className="mt-4">
       <StepIndicator
@@ -46,7 +43,7 @@ function ShipmentStep() {
             <AnimationView className="w-10 h-10" source={ANIMATIONS.delivery} />
           ) : null;
         }}
-        stepCount={labels.length}
+        stepCount={orderShippings.length}
         labels={labels}
         currentPosition={step}
         customStyles={customStyles}
