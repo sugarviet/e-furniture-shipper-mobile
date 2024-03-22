@@ -27,8 +27,13 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router"
-     
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow E-Furniture to use your location."
+        }
+      ]
     ],
     "scheme": "app-scheme"
 
