@@ -1,0 +1,2 @@
+export const GOOGLE_API_KEY = "AIzaSyAcQnpFxv316MyJdUquvkJpy2glLqPMS6c";
+export const VIET_MAP_API_KEY = "c043236fde99317c90dd9599c78938470a730f3e14962b4b"

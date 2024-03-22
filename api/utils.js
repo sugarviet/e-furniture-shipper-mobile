@@ -27,8 +27,6 @@ USER_API.interceptors.request.use(
         config.headers["x-client-refreshtoken"] = refresh_token;
         config.headers["x-client-id"] = account_id;
 
-        console.log(config);
-
         return config;
     },
     (error) => {

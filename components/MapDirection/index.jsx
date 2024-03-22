@@ -1,8 +1,7 @@
 import MapViewDirections from "react-native-maps-directions";
 import { COLORS } from "../../constants/color";
 import { useState } from "react";
-
-const GOOGLE_API_KEY = "AIzaSyCvAQd6KnqLeica2_8EKeUsyMhJTjZSbJw";
+import { GOOGLE_API_KEY } from "../../constants/key";
 
 function MapDirection({ origin, destination, onRotate }) {
   const [isReady, setIsReady] = useState(false);
