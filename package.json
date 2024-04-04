@@ -32,6 +32,7 @@
     "react-native-maps-directions": "^1.9.0",
     "react-native-step-indicator": "^1.0.3",
     "react-native-svg": "^15.1.0",
+    "socket.io-client": "^4.7.5",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

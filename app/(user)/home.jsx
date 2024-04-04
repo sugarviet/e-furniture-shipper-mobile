@@ -26,7 +26,7 @@ function HomeScreen() {
         </View>
       </SafeAreaView>
       <ScrollView className="flex-1 bg-white px-8 pt-4">
-        <ShipmentTrackingCard />
+        {/* <ShipmentTrackingCard /> */}
         <View className="pb-12">
           <ShipmentHistory />
         </View>
