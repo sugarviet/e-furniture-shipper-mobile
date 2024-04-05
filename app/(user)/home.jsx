@@ -3,7 +3,7 @@ import UserBriefInfo from "../../components/UserBriefInfo";
 import LogoutButton from "../../components/LogoutButton";
 import { useDeliveryStore } from "../../stores/useDeliveryStore";
 import ShipmentContainer from "../../components/ShipmentContainer";
-import PickUpPackageContainer from "../../components/PickupPackageContainer";
+import PickUpPackageContainer from "../../components/PickUpPackageContainer";
 
 function HomeScreen() {
   const { currentState } = useDeliveryStore();

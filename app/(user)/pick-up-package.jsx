@@ -12,6 +12,7 @@ import { IMAGES } from "../../constants/image";
 import { useFetchAuth } from "../../hooks/api-hooks";
 import { get_orders_api } from "../../api/orderApi";
 import ShipmentCard from "../../components/ShipmentCard";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 function PickUpPackageScreen() {
   const { data, isLoading } = useFetchAuth(get_orders_api("processing"));
@@ -41,9 +42,13 @@ function PickUpPackageScreen() {
         ))}
       </ScrollView>
       <View className="flex-row justify-end pb-6 items-center bg-white">
-        <TouchableOpacity className="bg-teal-600 px-4 py-4 h-full flex-row items-center justify-between">
-          <Text className="font-bold text-center text-md text-white uppercase">
+        <View></View>
+        <TouchableOpacity className="bg-teal-600 px-4 py-4 items-center justify-between">
+          <Text className="text-center text-md text-white">
             Request delivery
+          </Text>
+          <Text className="font-bold text-white">
+            {formatCurrency(10000000)}
           </Text>
         </TouchableOpacity>
       </View>
