@@ -5,11 +5,11 @@ import { IMAGES } from "../../constants/image";
 import Icon from "../Icon";
 import useNavigation from "../../hooks/useNavigation";
 import { useFetchAuth } from "../../hooks/api-hooks";
-import { get_pending_orders_api } from "../../api/orderApi";
+import { get_orders_api } from "../../api/orderApi";
 
 function ShipmentTrackingCard() {
   const { go_to_delivery } = useNavigation();
-  const { data, isLoading } = useFetchAuth(get_pending_orders_api());
+  const { data, isLoading } = useFetchAuth(get_orders_api("processing"));
 
   if (isLoading) return null;
 

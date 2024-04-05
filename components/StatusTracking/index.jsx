@@ -9,7 +9,7 @@ const STATUS_PROPS = {
     label: "in-delivery",
     icon: IMAGES.delivery_truck,
   },
-  pending: {
+  processing: {
     className: "bg-blue-500",
     label: "pending",
     icon: IMAGES.time,

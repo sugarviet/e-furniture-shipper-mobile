@@ -4,12 +4,13 @@ import { IMAGES } from "../../constants/image";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
 import StatusTracking from "../StatusTracking";
+import { classNames } from "../../utils/classNames";
 
 const STATUS_PROPS = {
   delivery: {
     icon: IMAGES.goods,
   },
-  pending: {
+  processing: {
     icon: IMAGES.pending_order,
   },
   fail: {
@@ -20,7 +21,7 @@ const STATUS_PROPS = {
   },
 };
 
-function ShipmentCard({ status, order }) {
+function ShipmentCard({ status, order, className }) {
   const { icon } = STATUS_PROPS[status];
   const {
     order_code,
@@ -37,7 +38,12 @@ function ShipmentCard({ status, order }) {
   const { address, district, ward, province } = order_shipping;
 
   return (
-    <View className="flex-row items-center my-2 bg-white rounded-xl px-4 py-2 shadow-lg shadow-slate-300">
+    <View
+      className={classNames(
+        "flex-row items-center bg-white px-4 py-2 shadow-lg shadow-slate-300",
+        className
+      )}
+    >
       <View className="flex-1">
         <StatusTracking status={status} />
         <Text className="font-bold tracking-tighter">#{order_code}</Text>

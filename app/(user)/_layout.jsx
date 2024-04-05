@@ -15,7 +15,7 @@ const UserLayout = () => {
 
   useEffect(() => {
     if (!token) return go_to_sign_in();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if (!data || isLoading) return;
