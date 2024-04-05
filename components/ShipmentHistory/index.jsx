@@ -1,10 +1,10 @@
 import { Text, View } from "react-native";
 import ShipmentCard from "../ShipmentCard";
 import { useFetchAuth } from "../../hooks/api-hooks";
-import { get_pending_orders_api } from "../../api/orderApi";
+import { get_orders_api } from "../../api/orderApi";
 
 function ShipmentHistory() {
-  const { data, isLoading } = useFetchAuth(get_pending_orders_api());
+  const { data, isLoading } = useFetchAuth(get_orders_api("pending"));
 
   if (isLoading) return null;
 

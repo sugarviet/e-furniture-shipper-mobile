@@ -1,15 +1,31 @@
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import ShipmentTrackingCard from "../../components/ShipmentTrackingCard";
-import ShipmentHistory from "../../components/ShipmentHistory";
-import PickUpPackage from "../../components/PickUpPackage";
+import { SafeAreaView, Text, View } from "react-native";
 import UserBriefInfo from "../../components/UserBriefInfo";
 import LogoutButton from "../../components/LogoutButton";
+import { useDeliveryStore } from "../../stores/useDeliveryStore";
+import ShipmentContainer from "../../components/ShipmentContainer";
+import PickUpPackageContainer from "../../components/PickupPackageContainer";
 
 function HomeScreen() {
+  const { currentState } = useDeliveryStore();
+
+  const STATE_RENDER = [
+    {},
+    {
+      ContainerComponent: (
+        <PickUpPackageContainer className="flex-1 px-8 justify-end" />
+      ),
+    },
+    {
+      ContainerComponent: (
+        <ShipmentContainer className="flex-1 bg-white px-8 pt-4" />
+      ),
+    },
+  ];
+
   return (
     <View className="flex-1 bg-teal-800">
       <SafeAreaView>
-        <View className="px-8 pt-4 pb-8">
+        <View className="px-8 pt-4">
           <View className="flex-row justify-between items-center">
             <UserBriefInfo />
             <LogoutButton />
@@ -22,15 +38,9 @@ function HomeScreen() {
               Keep track your goods
             </Text>
           </View>
-          <PickUpPackage />
         </View>
       </SafeAreaView>
-      <ScrollView className="flex-1 bg-white px-8 pt-4">
-        {/* <ShipmentTrackingCard /> */}
-        <View className="pb-12">
-          <ShipmentHistory />
-        </View>
-      </ScrollView>
+      {STATE_RENDER[currentState].ContainerComponent}
     </View>
   );
 }
