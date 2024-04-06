@@ -4,6 +4,7 @@ import LogoutButton from "../../components/LogoutButton";
 import { useDeliveryStore } from "../../stores/useDeliveryStore";
 import ShipmentContainer from "../../components/ShipmentContainer";
 import PickUpPackageContainer from "../../components/PickUpPackageContainer";
+import WaitingConfirmContainer from "../../components/WaitingConfirmContainer";
 
 function HomeScreen() {
   const { currentState } = useDeliveryStore();
@@ -11,12 +12,17 @@ function HomeScreen() {
   const STATE_RENDER = [
     {},
     {
-      ContainerComponent: <ShipmentContainer className="flex-1 bg-white" />,
-    },
-    {
       ContainerComponent: (
         <PickUpPackageContainer className="flex-1 px-8 justify-end" />
       ),
+    },
+    {
+      ContainerComponent: (
+        <WaitingConfirmContainer className="flex-1 px-8 justify-center" />
+      ),
+    },
+    {
+      ContainerComponent: <ShipmentContainer className="flex-1 bg-white" />,
     },
   ];
 

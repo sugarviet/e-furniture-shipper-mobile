@@ -45,7 +45,7 @@ function Map({ destinations }) {
         <DestinationMarker key={i} address={destination} />
       ))}
 
-      {/* <TruckMarker angle={angle} coordinate={curLocation} /> */}
+      <TruckMarker angle={angle} coordinate={curLocation} />
     </MapView>
   );
 }

@@ -10,14 +10,16 @@ import { formatCurrency } from "../../utils/formatCurrency";
 import Icon from "../../components/Icon";
 import { COLORS } from "../../constants/color";
 import CheckBox from "react-native-check-box";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useDelivery from "../../stores/useDelivery";
 import { classNames } from "../../utils/classNames";
+import { useDeliveryStore } from "../../stores/useDeliveryStore";
 
 function PickUpPackageScreen() {
   const { data, isLoading } = useFetchAuth(get_orders_api("processing"));
   const { go_back } = useNavigation();
   const { createDeliveryTrip } = useDelivery();
+  const { currentState } = useDeliveryStore();
 
   const [selectOrders, setSelectOrders] = useState([]);
 
@@ -44,6 +46,12 @@ function PickUpPackageScreen() {
     (total, order) => total + order.order_checkout.final_total,
     0
   );
+
+  useEffect(() => {
+    if (currentState !== 1) {
+      go_back();
+    }
+  }, [currentState]);
 
   if (isLoading) return null;
 

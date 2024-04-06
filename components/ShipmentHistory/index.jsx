@@ -4,7 +4,7 @@ import { useFetchAuth } from "../../hooks/api-hooks";
 import { get_orders_api } from "../../api/orderApi";
 
 function ShipmentHistory() {
-  const { data, isLoading } = useFetchAuth(get_orders_api("pending"));
+  const { data, isLoading } = useFetchAuth(get_orders_api("processing"));
 
   if (isLoading) return null;
 

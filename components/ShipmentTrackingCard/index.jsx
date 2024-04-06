@@ -4,23 +4,15 @@ import ShipmentBriefInfo from "../ShipmentBriefInfo";
 import { IMAGES } from "../../constants/image";
 import Icon from "../Icon";
 import useNavigation from "../../hooks/useNavigation";
-import { useFetchAuth } from "../../hooks/api-hooks";
-import { get_orders_api } from "../../api/orderApi";
 
-function ShipmentTrackingCard() {
+function ShipmentTrackingCard({ data }) {
   const { go_to_delivery } = useNavigation();
-  const { data, isLoading } = useFetchAuth(get_orders_api("processing"));
 
-  if (isLoading) return null;
+  const total = data.reduce((total, cur) => total + cur.amount, 0);
 
-  const deliveryOrders = data.data.slice(0, 4);
-
-  const total = deliveryOrders.reduce(
-    (total, cur) => total + cur.order_checkout.final_total,
-    0
+  const orderShippings = deliveryOrders.map(
+    (order) => order.order.order_shipping
   );
-
-  const orderShippings = deliveryOrders.map((order) => order.order_shipping);
 
   return (
     <View className="my-2 p-2">
@@ -28,7 +20,7 @@ function ShipmentTrackingCard() {
         Current delivery trip
       </Text>
       <TouchableOpacity
-        onPress={() => go_to_delivery(orderShippings)}
+        onPress={() => go_to_delivery(deliveryOrders)}
         className="rounded-xl shadow-lg py-2 shadow-slate-300 bg-white"
       >
         <View className="flex-row justify-between items-center px-2">
