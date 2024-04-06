@@ -10,9 +10,7 @@ function ShipmentTrackingCard({ data }) {
 
   const total = data.reduce((total, cur) => total + cur.amount, 0);
 
-  const orderShippings = deliveryOrders.map(
-    (order) => order.order.order_shipping
-  );
+  const orderShippings = data.map((order) => order.order.order_shipping);
 
   return (
     <View className="my-2 p-2">
@@ -20,7 +18,7 @@ function ShipmentTrackingCard({ data }) {
         Current delivery trip
       </Text>
       <TouchableOpacity
-        onPress={() => go_to_delivery(deliveryOrders)}
+        onPress={() => go_to_delivery(data)}
         className="rounded-xl shadow-lg py-2 shadow-slate-300 bg-white"
       >
         <View className="flex-row justify-between items-center px-2">

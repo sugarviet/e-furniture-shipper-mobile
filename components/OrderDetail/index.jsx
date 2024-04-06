@@ -5,7 +5,6 @@ import { formatDate } from "../../utils/formatDate";
 
 function OrderDetail({ className, order }) {
   const { payment, date } = order;
-  console.log(order);
   return (
     <View className={classNames(className)}>
       <Text className="font-semibold mb-1">Order detail</Text>

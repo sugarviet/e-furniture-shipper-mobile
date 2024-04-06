@@ -10,7 +10,6 @@ export default function DeliveryTripDetail({ className, data }) {
   const { address, district, ward } = order_shipping;
   const { products } = warehouses[0];
 
-  console.log(data);
   const paid = 0;
   return (
     <View className={classNames(className)}>

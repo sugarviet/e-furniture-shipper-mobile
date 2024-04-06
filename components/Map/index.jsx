@@ -36,11 +36,11 @@ function Map({ destinations }) {
       style={{ flex: 1 }}
       initialRegion={region}
     >
-      {/* <MapDirection
+      <MapDirection
         onRotate={setAngle}
         origin={curLocation}
         destination={toLocation}
-      /> */}
+      />
       {destinations.map((destination, i) => (
         <DestinationMarker key={i} address={destination} />
       ))}
