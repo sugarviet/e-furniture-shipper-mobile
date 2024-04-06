@@ -32,10 +32,13 @@ function ShipmentCard({ status, order, className }) {
   } = order;
 
   const products = order_products
-    .map((order_product) => `${order_product.name} x ${order_product.quantity}`)
+    .map(
+      (order_product) =>
+        `${order_product.product_id.name} x ${order_product.quantity}`
+    )
     .join(", ");
 
-  const { address, district, ward, province } = order_shipping;
+  const { address, district, ward } = order_shipping;
 
   return (
     <View
@@ -49,7 +52,7 @@ function ShipmentCard({ status, order, className }) {
         <Text className="font-bold tracking-tighter">#{order_code}</Text>
         <Text className="text-xs text-gray-500">{products}</Text>
         <Text className="text-xs text-gray-500">
-          {`${address} ${district} ${ward} ${province}`}
+          {`${address} ${district} ${ward} Thành phố Hồ Chí Minh`}
         </Text>
         <View className="flex-row mt-2">
           <Text className="text-teal-600 font-bold">

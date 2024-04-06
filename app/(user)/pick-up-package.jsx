@@ -65,7 +65,7 @@ function PickUpPackageScreen() {
       />
       <ScrollView className="flex-1">
         {data.data.map((order, i) => (
-          <View className="mb-2 flex-row items-center bg-white">
+          <View key={i} className="mb-2 flex-row items-center bg-white">
             <CheckBox
               className="ml-2"
               isChecked={isOrderSelected(order)}
@@ -91,7 +91,7 @@ function PickUpPackageScreen() {
               source={IMAGES.delivery_truck}
             />
             <Text style={{ fontSize: 10 }}>
-              <Text className="text-sm font-bold">4</Text> products/trip
+              <Text className="text-sm font-bold">2</Text> orders/trip
             </Text>
           </View>
           <View className="flex-1 items-end justify-center px-2">

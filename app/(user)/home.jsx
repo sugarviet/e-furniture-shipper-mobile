@@ -11,13 +11,11 @@ function HomeScreen() {
   const STATE_RENDER = [
     {},
     {
-      ContainerComponent: (
-        <PickUpPackageContainer className="flex-1 px-8 justify-end" />
-      ),
+      ContainerComponent: <ShipmentContainer className="flex-1 bg-white" />,
     },
     {
       ContainerComponent: (
-        <ShipmentContainer className="flex-1 bg-white px-8 pt-4" />
+        <PickUpPackageContainer className="flex-1 px-8 justify-end" />
       ),
     },
   ];

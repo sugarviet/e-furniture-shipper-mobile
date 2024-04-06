@@ -9,11 +9,6 @@ import { get_geo_code_api } from "../../api/vietMapApi";
 
 const NVH_COORDINATES = [10.875260759212852, 106.80068047903023];
 
-const toLocation = {
-  latitude: NVH_COORDINATES[0],
-  longitude: NVH_COORDINATES[1],
-};
-
 function Map({ destinations }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
@@ -50,7 +45,7 @@ function Map({ destinations }) {
         <DestinationMarker key={i} address={destination} />
       ))}
 
-      <TruckMarker angle={angle} coordinate={curLocation} />
+      {/* <TruckMarker angle={angle} coordinate={curLocation} /> */}
     </MapView>
   );
 }

@@ -10,14 +10,19 @@ function ShipmentHistory() {
 
   return (
     <View className="my-2">
-      <View className="flex-row justify-between items-center  mb-2">
-        <Text className="text-lg font-bold tracking-wider">
+      <View className="flex-row justify-between items-center px-2">
+        <Text className="text-lg text-teal-700 font-bold tracking-wider">
           Recent shipment
         </Text>
         <Text className="text-gray-500 text-xs">{`(${data.data.length})`}</Text>
       </View>
       {data.data.map((order, i) => (
-        <ShipmentCard key={i} order={order} status="pending" />
+        <ShipmentCard
+          className="border-b border-gray-200 my-1"
+          key={i}
+          order={order}
+          status="processing"
+        />
       ))}
     </View>
   );
