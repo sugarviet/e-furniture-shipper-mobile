@@ -80,7 +80,7 @@ export const usePostAuth = (url, params, onSuccessAPI = () => { }, onErrorAPI = 
 
 export const useUpdate = (url, params, onSuccessAPI = () => { }, onErrorAPI = () => { }, key) => {
   return useGenericMutation(
-    (data) => axios.put(url, data),
+    async (data) => await USER_API.put(url, data),
     key,
     params,
     onSuccessAPI,

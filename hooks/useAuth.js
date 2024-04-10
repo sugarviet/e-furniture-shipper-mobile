@@ -20,7 +20,7 @@ function useAuth() {
 
     const { mutate: signOutMutation } = usePostAuth(get_sign_out_api(), undefined, () => {
         clearToken();
-    })
+    }, (error) => { alert(error.message) });
 
     const signIn = (data) => {
         const { username, password } = data;

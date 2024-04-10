@@ -7,7 +7,7 @@ import { get_geo_code_api } from "../../api/vietMapApi";
 function DestinationMarker({ address }) {
   const { data, isLoading } = useFetch(get_geo_code_api(address));
 
-  if (isLoading) return null;
+  if (isLoading || !data) return null;
 
   const { geometry } = data.data.features[0];
   const coordinate = {

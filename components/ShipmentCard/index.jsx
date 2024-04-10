@@ -4,12 +4,13 @@ import { IMAGES } from "../../constants/image";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { formatDate } from "../../utils/formatDate";
 import StatusTracking from "../StatusTracking";
+import { classNames } from "../../utils/classNames";
 
 const STATUS_PROPS = {
   delivery: {
     icon: IMAGES.goods,
   },
-  pending: {
+  processing: {
     icon: IMAGES.pending_order,
   },
   fail: {
@@ -20,7 +21,7 @@ const STATUS_PROPS = {
   },
 };
 
-function ShipmentCard({ status, order }) {
+function ShipmentCard({ status, order, className }) {
   const { icon } = STATUS_PROPS[status];
   const {
     order_code,
@@ -31,19 +32,27 @@ function ShipmentCard({ status, order }) {
   } = order;
 
   const products = order_products
-    .map((order_product) => `${order_product.name} x ${order_product.quantity}`)
+    .map(
+      (order_product) =>
+        `${order_product.product_id.name} x ${order_product.quantity}`
+    )
     .join(", ");
 
-  const { address, district, ward, province } = order_shipping;
+  const { address, district, ward } = order_shipping;
 
   return (
-    <View className="flex-row items-center my-2 bg-white rounded-xl px-4 py-2 shadow-lg shadow-slate-300">
+    <View
+      className={classNames(
+        "flex-row items-center bg-white px-4 py-2 shadow-lg shadow-slate-300",
+        className
+      )}
+    >
       <View className="flex-1">
         <StatusTracking status={status} />
         <Text className="font-bold tracking-tighter">#{order_code}</Text>
         <Text className="text-xs text-gray-500">{products}</Text>
         <Text className="text-xs text-gray-500">
-          {`${address} ${district} ${ward} ${province}`}
+          {`${address} ${district} ${ward} Thành phố Hồ Chí Minh`}
         </Text>
         <View className="flex-row mt-2">
           <Text className="text-teal-600 font-bold">

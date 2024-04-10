@@ -1,25 +1,29 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import HeaderButton from "../../components/HeaderButton";
 import { IMAGES } from "../../constants/image";
 import Map from "../../components/Map";
 import useNavigation from "../../hooks/useNavigation";
-import { useFetchAuth } from "../../hooks/api-hooks";
-import { get_pending_orders_api } from "../../api/orderApi";
+import { useLocalSearchParams } from "expo-router";
+import BottomSheet from "../../components/BottomSheet";
+import ShipmentTrackingCard from "../../components/ShipmentTrackingCard";
+import ReceiverBriefInfo from "../../components/ReceiverBriefInfo";
+import DeliveryTripDetail from "../../components/DeliveryTripDetail";
+import { useState } from "react";
+import OrderDetail from "../../components/OrderDetail";
+import ConfirmDoneDeliveryTrip from "../../components/ConfirmDoneDeliveryTrip";
+import ConfirmDeliveryFail from "../../components/ConfirmDeliveryFailed";
+import ConfirmCustomerReceived from "../../components/ConfirmCustomerReceived";
 
 function DeliveryScreen() {
   const { go_back } = useNavigation();
+  const { data } = useLocalSearchParams();
+  const orderShippings = JSON.parse(data);
 
-  const { data, isLoading } = useFetchAuth(get_pending_orders_api());
-
-  if (isLoading) return null;
-
-  const deliveryOrders = data.data.slice(0, 4);
-
-  const orderShippings = deliveryOrders.map((order) => order.order_shipping);
+  const [currentOrder, setCurrentOrder] = useState(orderShippings[0]);
 
   const destinations = orderShippings.map((orderShipping) => {
-    const { address, district, ward, province } = orderShipping;
-    return `${address} ${ward} ${district}  ${province}`;
+    const { address, district, ward } = orderShipping;
+    return `${address} ${ward} ${district}`;
   });
 
   return (
@@ -32,6 +36,26 @@ function DeliveryScreen() {
         />
       </View>
       <Map destinations={destinations} />
+      <BottomSheet>
+        <ScrollView className="px-4">
+          <ReceiverBriefInfo
+            data={currentOrder.order.order_shipping}
+            className="border-b py-4 border-gray-300"
+          />
+          <DeliveryTripDetail
+            data={currentOrder}
+            className="border-b py-4 border-gray-300"
+          />
+          <OrderDetail
+            className="border-b py-4 border-gray-300"
+            order={currentOrder}
+          />
+          <View className="flex-row py-4">
+            <ConfirmDeliveryFail className="flex-1 mr-1" />
+            <ConfirmCustomerReceived className="flex-1 ml-1" />
+          </View>
+        </ScrollView>
+      </BottomSheet>
     </View>
   );
 }
