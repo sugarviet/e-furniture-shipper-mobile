@@ -12,12 +12,19 @@ function ShipmentHistory({ data }) {
       </View>
       {data.map((item, i) => {
         const { order } = item;
-        const { order_tracking } = order;
+        const { order_tracking, order_products } = order;
         const current_state = order_tracking[order_tracking.length - 1];
+        const products = order_products
+          .map(
+            (order_product) =>
+              `${order_product.product.name} x ${order_product.quantity}`
+          )
+          .join(", ");
         return (
           <ShipmentCard
             className="border-b border-gray-200 my-1"
             key={i}
+            products={products}
             order={order}
             status={current_state.name}
           />

@@ -14,7 +14,7 @@ const STATUS_PROPS = {
     label: "pending",
     icon: IMAGES.time,
   },
-  success: {
+  done: {
     className: "bg-green-500",
     label: "success",
     icon: IMAGES.checked,

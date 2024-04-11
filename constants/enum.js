@@ -1,5 +1,8 @@
 export const PAYMENT_METHOD = {
-    COD: {
+    cod: {
         title: "Cash on delivery",
     },
+    online_payment: {
+        title: "Online Payment",
+    }
 };

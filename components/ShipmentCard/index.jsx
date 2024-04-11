@@ -16,29 +16,16 @@ const STATUS_PROPS = {
   fail: {
     icon: IMAGES.goods_return_3d,
   },
-  success: {
+  done: {
     icon: IMAGES.goods_delivered,
   },
 };
 
-function ShipmentCard({ status, order, className }) {
+function ShipmentCard({ status, order, className, products }) {
   const toLowerCaseStatus = status.toLowerCase();
   const { icon } = STATUS_PROPS[toLowerCaseStatus];
 
-  const {
-    order_code,
-    order_products,
-    order_shipping,
-    order_checkout,
-    createdAt,
-  } = order;
-
-  const products = order_products
-    .map(
-      (order_product) =>
-        `${order_product.product_id.name} x ${order_product.quantity}`
-    )
-    .join(", ");
+  const { order_code, order_shipping, order_checkout, createdAt } = order;
 
   const { address, district, ward } = order_shipping;
 

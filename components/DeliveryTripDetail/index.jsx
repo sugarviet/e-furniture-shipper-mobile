@@ -3,20 +3,23 @@ import React from "react";
 import { classNames } from "../../utils/classNames";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { PAYMENT_METHOD } from "../../constants/enum";
+import capitalCaseToSnackCase from "../../constants/capitalCaseToSnackCase";
 
 export default function DeliveryTripDetail({ className, data }) {
-  const { order, amount, payment } = data;
-  const { order_shipping, warehouses } = order;
+  const { order, payment } = data;
+  const { order_shipping } = order;
   const { address, district, ward } = order_shipping;
-  const { products } = warehouses[0];
+  const { order_products, order_checkout } = order;
+  const { paid } = order_checkout;
+  const { must_paid, paid_amount } = paid;
 
-  const paid = 0;
   return (
     <View className={classNames(className)}>
       <View>
         <Text className="font-semibold mb-1">Order information</Text>
-        {products.map((product, index) => {
-          const { name, quantity, variation } = product;
+        {order_products.map((item, index) => {
+          const { product, quantity } = item;
+          const { name } = product;
           return (
             <View key={index}>
               <Text className="text-xs text-gray-500">{`${name} x ${quantity}`}</Text>
@@ -26,22 +29,22 @@ export default function DeliveryTripDetail({ className, data }) {
         <View className="my-2">
           <View className="flex-row justify-between items-center">
             <Text className="text-gray-500 text-xs">
-              {`${PAYMENT_METHOD[payment].title}:`}
+              {`${PAYMENT_METHOD[capitalCaseToSnackCase(payment)].title}:`}
             </Text>
             <Text className="text-gray-500 text-xs">
-              {formatCurrency(amount)}
+              {formatCurrency(must_paid)}
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
             <Text className="text-gray-500 text-xs">Paid:</Text>
             <Text className="text-gray-500 text-xs">
-              {formatCurrency(paid)}
+              {formatCurrency(paid_amount)}
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
             <Text className="text-gray-500 text-xs">Collect payment:</Text>
             <Text className="text-gray-500 text-xs">
-              {formatCurrency(amount - paid)}
+              {formatCurrency(must_paid - paid_amount)}
             </Text>
           </View>
         </View>
