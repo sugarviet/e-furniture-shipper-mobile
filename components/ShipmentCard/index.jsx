@@ -7,7 +7,7 @@ import StatusTracking from "../StatusTracking";
 import { classNames } from "../../utils/classNames";
 
 const STATUS_PROPS = {
-  delivery: {
+  shipping: {
     icon: IMAGES.goods,
   },
   processing: {
@@ -22,7 +22,9 @@ const STATUS_PROPS = {
 };
 
 function ShipmentCard({ status, order, className }) {
-  const { icon } = STATUS_PROPS[status];
+  const toLowerCaseStatus = status.toLowerCase();
+  const { icon } = STATUS_PROPS[toLowerCaseStatus];
+
   const {
     order_code,
     order_products,
@@ -48,7 +50,7 @@ function ShipmentCard({ status, order, className }) {
       )}
     >
       <View className="flex-1">
-        <StatusTracking status={status} />
+        <StatusTracking status={toLowerCaseStatus} />
         <Text className="font-bold tracking-tighter">#{order_code}</Text>
         <Text className="text-xs text-gray-500">{products}</Text>
         <Text className="text-xs text-gray-500">

@@ -23,7 +23,7 @@ function DeliveryScreen() {
 
   const destinations = orderShippings.map((orderShipping) => {
     const { address, district, ward } = orderShipping;
-    return `${address} ${ward} ${district}`;
+    return `${address} ${ward} ${district} Thành phố Hồ Chí Minh Viêt Nam`;
   });
 
   return (

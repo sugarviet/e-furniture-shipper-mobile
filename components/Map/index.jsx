@@ -7,8 +7,6 @@ import useLocation from "../../hooks/useLocation";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
 
-const NVH_COORDINATES = [10.875260759212852, 106.80068047903023];
-
 function Map({ destinations }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
@@ -23,6 +21,12 @@ function Map({ destinations }) {
     longitude: geometry.coordinates[0],
   };
 
+  // const { geometry } = data.results;
+  // const toLocation = {
+  //   latitude: geometry.location.lat,
+  //   longitude: geometry.location.lng,
+  // };
+
   const region = {
     latitude: (toLocation.latitude + curLocation.latitude) / 2,
     longitude: (toLocation.longitude + curLocation.longitude) / 2,
@@ -31,16 +35,12 @@ function Map({ destinations }) {
   };
 
   return (
-    <MapView
-      provider={PROVIDER_GOOGLE}
-      style={{ flex: 1 }}
-      initialRegion={region}
-    >
-      <MapDirection
+    <MapView style={{ flex: 1 }} initialRegion={region}>
+      {/* <MapDirection
         onRotate={setAngle}
         origin={curLocation}
         destination={toLocation}
-      />
+      /> */}
       {destinations.map((destination, i) => (
         <DestinationMarker key={i} address={destination} />
       ))}

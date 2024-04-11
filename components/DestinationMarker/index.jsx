@@ -3,6 +3,7 @@ import Icon from "../Icon";
 import { IMAGES } from "../../constants/image";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
+import { View } from "react-native";
 
 function DestinationMarker({ address }) {
   const { data, isLoading } = useFetch(get_geo_code_api(address));

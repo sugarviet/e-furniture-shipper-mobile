@@ -4,7 +4,7 @@ import { IMAGES } from "../../constants/image";
 import { classNames } from "../../utils/classNames";
 
 const STATUS_PROPS = {
-  delivery: {
+  shipping: {
     className: "bg-orange-500",
     label: "in-delivery",
     icon: IMAGES.delivery_truck,
