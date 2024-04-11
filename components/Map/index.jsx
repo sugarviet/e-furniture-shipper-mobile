@@ -7,36 +7,15 @@ import useLocation from "../../hooks/useLocation";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
 
-const HCM_COORDINATE = [10.786472277503979, 106.63717109917292];
-
 function Map({ destinations }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
+
   const { data, isLoading } = useFetch(get_geo_code_api(destinations[0]));
 
-  const [region, setRegion] = useState({
-    latitude: HCM_COORDINATE[0],
-    longitude: HCM_COORDINATE[1],
-    latitudeDelta: 0.2,
-    longitudeDelta: 0.2,
-  });
   const [angle, setAngle] = useState();
 
-  useEffect(() => {
-    if (!curLocation) return;
-
-    const newRegion = {
-      latitude: (toLocation.latitude + curLocation.latitude) / 2,
-      longitude: (toLocation.longitude + curLocation.longitude) / 2,
-      latitudeDelta: Math.abs(toLocation.latitude - curLocation.latitude) * 2,
-      longitudeDelta:
-        Math.abs(toLocation.longitude - curLocation.longitude) * 2,
-    };
-
-    setRegion(newRegion);
-  }, [curLocation]);
-
-  if (isLoading) return null;
+  if (isLoading || curLocationLoading || !curLocation) return null;
 
   const { geometry } = data.data.features[0];
   const toLocation = {
@@ -44,10 +23,17 @@ function Map({ destinations }) {
     longitude: geometry.coordinates[0],
   };
 
+  const region = {
+    latitude: (toLocation.latitude + curLocation.latitude) / 2,
+    longitude: (toLocation.longitude + curLocation.longitude) / 2,
+    latitudeDelta: Math.abs(toLocation.latitude - curLocation.latitude) * 3,
+    longitudeDelta: Math.abs(toLocation.longitude - curLocation.longitude) * 3,
+  };
+
   return (
     <MapView
-      followsUserLocation
-      region={region}
+      // followsUserLocation
+      // showsUserLocation
       style={{ flex: 1 }}
       initialRegion={region}
     >

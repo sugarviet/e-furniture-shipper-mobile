@@ -72,23 +72,39 @@ function PickUpPackageScreen() {
         }}
       />
       <ScrollView className="flex-1">
-        {data.data.map((order, i) => (
-          <View key={i} className="mb-2 flex-row items-center bg-white">
-            <CheckBox
-              className="ml-2"
-              isChecked={isOrderSelected(order)}
-              onClick={() => {
+        {data.data.map((order, i) => {
+          const { order_products } = order;
+          const products = order_products
+            .map(
+              (order_product) =>
+                `${order_product.product_id.name} x ${order_product.quantity}`
+            )
+            .join(", ");
+          return (
+            <TouchableOpacity
+              onPress={() => {
                 handleSelectOrder(order);
               }}
-            />
-            <ShipmentCard
-              className="flex-1 shadow-none"
               key={i}
-              order={order}
-              status="processing"
-            />
-          </View>
-        ))}
+              className="mb-2 flex-row items-center bg-white"
+            >
+              <CheckBox
+                className="ml-2"
+                isChecked={isOrderSelected(order)}
+                onClick={() => {
+                  handleSelectOrder(order);
+                }}
+              />
+              <ShipmentCard
+                className="flex-1 shadow-none"
+                key={i}
+                order={order}
+                products={products}
+                status="processing"
+              />
+            </TouchableOpacity>
+          );
+        })}
       </ScrollView>
       <View className="flex-row justify-end pb-6 items-center bg-white">
         <View className="flex-1 flex-row">

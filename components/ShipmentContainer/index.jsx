@@ -17,7 +17,7 @@ function ShipmentContainer({ className }) {
   if (isLoading) return;
 
   const { orders, _id } = data;
-  console.log(orders);
+  console.log(data);
 
   return (
     <ScrollView className={classNames(className)}>
