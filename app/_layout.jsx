@@ -4,6 +4,9 @@ import withAuthentication from "../hocs/withAuthentication";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import useSocket from "../hooks/useSocket";
 import { useEffect } from "react";
+import Vietmap from "@vietmap/vietmap-gl-react-native";
+
+Vietmap.setApiKey(null);
 
 const RootLayout = () => {
   const queryClient = new QueryClient();

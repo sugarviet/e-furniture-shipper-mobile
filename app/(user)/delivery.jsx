@@ -13,6 +13,7 @@ import OrderDetail from "../../components/OrderDetail";
 import ConfirmDoneDeliveryTrip from "../../components/ConfirmDoneDeliveryTrip";
 import ConfirmDeliveryFail from "../../components/ConfirmDeliveryFailed";
 import ConfirmCustomerReceived from "../../components/ConfirmCustomerReceived";
+import SimpleMap from "../../components/ShowMap";
 
 function DeliveryScreen() {
   const { go_back } = useNavigation();
@@ -35,7 +36,8 @@ function DeliveryScreen() {
           source={IMAGES.back_arrow}
         />
       </View>
-      <Map destinations={destinations} />
+      {/* <SimpleMap /> */}
+      {/* <Map destinations={destinations} /> */}
       <BottomSheet>
         <ScrollView className="px-4">
           <ReceiverBriefInfo
