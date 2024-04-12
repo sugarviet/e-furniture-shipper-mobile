@@ -8,14 +8,14 @@ import { useEffect } from "react";
 const RootLayout = () => {
   const queryClient = new QueryClient();
 
-  const { registerId, subscribeStateChange, subscribeCheckRegister } =
-    useSocket();
+  // const { registerId, subscribeStateChange, subscribeCheckRegister } =
+  //   useSocket();
 
-  useEffect(() => {
-    registerId();
-    subscribeStateChange();
-    subscribeCheckRegister();
-  }, []);
+  // useEffect(() => {
+  //   registerId();
+  //   subscribeStateChange();
+  //   subscribeCheckRegister();
+  // }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

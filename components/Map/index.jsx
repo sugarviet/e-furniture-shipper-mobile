@@ -2,20 +2,20 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import DestinationMarker from "../DestinationMarker";
 import TruckMarker from "../TruckMarker";
 import MapDirection from "../MapDirection";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useLocation from "../../hooks/useLocation";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
 
-const NVH_COORDINATES = [10.875260759212852, 106.80068047903023];
-
 function Map({ destinations }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
+
   const { data, isLoading } = useFetch(get_geo_code_api(destinations[0]));
 
   const [angle, setAngle] = useState();
-  if (isLoading || curLocationLoading) return null;
+
+  if (isLoading || curLocationLoading || !curLocation) return null;
 
   const { geometry } = data.data.features[0];
   const toLocation = {
@@ -26,26 +26,29 @@ function Map({ destinations }) {
   const region = {
     latitude: (toLocation.latitude + curLocation.latitude) / 2,
     longitude: (toLocation.longitude + curLocation.longitude) / 2,
-    latitudeDelta: Math.abs(toLocation.latitude - curLocation.latitude) * 2,
-    longitudeDelta: Math.abs(toLocation.longitude - curLocation.longitude) * 2,
+    latitudeDelta: Math.abs(toLocation.latitude - curLocation.latitude) * 3,
+    longitudeDelta: Math.abs(toLocation.longitude - curLocation.longitude) * 3,
   };
 
   return (
     <MapView
-      provider={PROVIDER_GOOGLE}
+      // followsUserLocation
+      // showsUserLocation
       style={{ flex: 1 }}
       initialRegion={region}
     >
-      <MapDirection
+      {/* <MapDirection
         onRotate={setAngle}
         origin={curLocation}
         destination={toLocation}
-      />
+      /> */}
       {destinations.map((destination, i) => (
         <DestinationMarker key={i} address={destination} />
       ))}
 
-      <TruckMarker angle={angle} coordinate={curLocation} />
+      {!curLocationLoading && (
+        <TruckMarker angle={angle} coordinate={curLocation} />
+      )}
     </MapView>
   );
 }

@@ -23,7 +23,9 @@ function ConfirmDoneDeliveryTrip({ className, id }) {
       )}
       onPress={confirmDone}
     >
-      <Text className="text-white text-base">Confirm done</Text>
+      <Text className="text-white text-base uppercase tracking-wider font-semibold">
+        Complete trip
+      </Text>
     </TouchableOpacity>
   );
 }

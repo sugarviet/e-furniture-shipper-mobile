@@ -5,25 +5,33 @@ import Map from "../../components/Map";
 import useNavigation from "../../hooks/useNavigation";
 import { useLocalSearchParams } from "expo-router";
 import BottomSheet from "../../components/BottomSheet";
-import ShipmentTrackingCard from "../../components/ShipmentTrackingCard";
 import ReceiverBriefInfo from "../../components/ReceiverBriefInfo";
 import DeliveryTripDetail from "../../components/DeliveryTripDetail";
 import { useState } from "react";
 import OrderDetail from "../../components/OrderDetail";
-import ConfirmDoneDeliveryTrip from "../../components/ConfirmDoneDeliveryTrip";
 import ConfirmDeliveryFail from "../../components/ConfirmDeliveryFailed";
 import ConfirmCustomerReceived from "../../components/ConfirmCustomerReceived";
+import { useAuthStore } from "../../stores/useAuthStore";
+import { useFetchAuth } from "../../hooks/api-hooks";
+import { get_delivery_trip_api_of } from "../../api/deliveryApi";
 
 function DeliveryScreen() {
   const { go_back } = useNavigation();
-  const { data } = useLocalSearchParams();
-  const orderShippings = JSON.parse(data);
+  const { token } = useAuthStore();
+  const { account_id } = token;
+  const { data, isLoading } = useFetchAuth(
+    get_delivery_trip_api_of(account_id)
+  );
 
-  const [currentOrder, setCurrentOrder] = useState(orderShippings[0]);
+  if (isLoading) return null;
+  const { orders, _id } = data;
+  const currentOrder = orders[1];
 
-  const destinations = orderShippings.map((orderShipping) => {
+  const { order } = currentOrder;
+
+  const destinations = orders.map((orderShipping) => {
     const { address, district, ward } = orderShipping;
-    return `${address} ${ward} ${district}`;
+    return `${address} ${ward} ${district} Thành phố Hồ Chí Minh Viêt Nam`;
   });
 
   return (
@@ -48,11 +56,19 @@ function DeliveryScreen() {
           />
           <OrderDetail
             className="border-b py-4 border-gray-300"
-            order={currentOrder}
+            data={currentOrder}
           />
           <View className="flex-row py-4">
-            <ConfirmDeliveryFail className="flex-1 mr-1" />
-            <ConfirmCustomerReceived className="flex-1 ml-1" />
+            <ConfirmDeliveryFail
+              order_id={order._id}
+              id={_id}
+              className="flex-1 mr-1"
+            />
+            <ConfirmCustomerReceived
+              order_id={order._id}
+              id={_id}
+              className="flex-1 ml-1"
+            />
           </View>
         </ScrollView>
       </BottomSheet>

@@ -7,7 +7,7 @@ import StatusTracking from "../StatusTracking";
 import { classNames } from "../../utils/classNames";
 
 const STATUS_PROPS = {
-  delivery: {
+  shipping: {
     icon: IMAGES.goods,
   },
   processing: {
@@ -16,27 +16,16 @@ const STATUS_PROPS = {
   fail: {
     icon: IMAGES.goods_return_3d,
   },
-  success: {
+  done: {
     icon: IMAGES.goods_delivered,
   },
 };
 
-function ShipmentCard({ status, order, className }) {
-  const { icon } = STATUS_PROPS[status];
-  const {
-    order_code,
-    order_products,
-    order_shipping,
-    order_checkout,
-    createdAt,
-  } = order;
+function ShipmentCard({ status, order, className, products }) {
+  const toLowerCaseStatus = status.toLowerCase();
+  const { icon } = STATUS_PROPS[toLowerCaseStatus];
 
-  const products = order_products
-    .map(
-      (order_product) =>
-        `${order_product.product_id.name} x ${order_product.quantity}`
-    )
-    .join(", ");
+  const { order_code, order_shipping, order_checkout, createdAt } = order;
 
   const { address, district, ward } = order_shipping;
 
@@ -48,7 +37,7 @@ function ShipmentCard({ status, order, className }) {
       )}
     >
       <View className="flex-1">
-        <StatusTracking status={status} />
+        <StatusTracking status={toLowerCaseStatus} />
         <Text className="font-bold tracking-tighter">#{order_code}</Text>
         <Text className="text-xs text-gray-500">{products}</Text>
         <Text className="text-xs text-gray-500">

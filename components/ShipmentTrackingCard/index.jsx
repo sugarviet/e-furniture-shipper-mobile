@@ -18,7 +18,7 @@ function ShipmentTrackingCard({ data }) {
         Current delivery trip
       </Text>
       <TouchableOpacity
-        onPress={() => go_to_delivery(data)}
+        onPress={go_to_delivery}
         className="rounded-xl shadow-lg py-2 shadow-slate-300 bg-white"
       >
         <View className="flex-row justify-between items-center px-2">

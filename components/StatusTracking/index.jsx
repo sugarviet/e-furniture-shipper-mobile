@@ -4,7 +4,7 @@ import { IMAGES } from "../../constants/image";
 import { classNames } from "../../utils/classNames";
 
 const STATUS_PROPS = {
-  delivery: {
+  shipping: {
     className: "bg-orange-500",
     label: "in-delivery",
     icon: IMAGES.delivery_truck,
@@ -14,7 +14,7 @@ const STATUS_PROPS = {
     label: "pending",
     icon: IMAGES.time,
   },
-  success: {
+  done: {
     className: "bg-green-500",
     label: "success",
     icon: IMAGES.checked,
