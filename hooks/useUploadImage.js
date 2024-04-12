@@ -1,44 +1,31 @@
 import { useState } from "react";
+import axios from "axios";
 
 function useUploadImage() {
-    const [imgURL, setImgUrl] = useState(null);
+    const [imgURL, setImgUrl] = useState("");
 
-    const handleUploadImage = async () => {
+    const uploadImage = async (photo, callback) => {
         try {
-            const { status } =
-                await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (status !== "granted") {
-                alert("Permission to access media library is required!");
-                return;
-            }
-
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.Images,
-                allowsEditing: true,
-                aspect: [1, 1],
-                quality: 1,
+            const formData = new FormData();
+            formData.append("key", "373bc9b180e920e9c2ebceaa3b341eed");
+            formData.append("image", {
+                uri: photo.uri,
+                name: "test.jpg",
+                type: "image/jpeg",
             });
 
-            if (!result.canceled) {
-                const formData = new FormData();
-                formData.append("key", "373bc9b180e920e9c2ebceaa3b341eed");
-                formData.append("image", {
-                    uri: result.uri,
-                    name: "test.jpg",
-                    type: "image/jpeg",
-                });
+            const data = await axios.post(
+                "https://api.imgbb.com/1/upload",
+                formData
+            ).then((response) => response.data);
 
-                const response = await axios.post(
-                    "https://api.imgbb.com/1/upload",
-                    formData
-                );
-                setImgUrl(result.uri);
-            }
+            setImgUrl(data.data.display_url);
+            callback(data.data.display_url)
         } catch (error) {
             console.error(error);
         }
     };
-    return {};
+    return { imgURL, uploadImage };
 }
 
 export default useUploadImage;

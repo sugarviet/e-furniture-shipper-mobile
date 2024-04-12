@@ -81,7 +81,7 @@ function DeliveryScreen() {
           className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center z-50"
         >
           <CameraView
-            onSubmitPhoto={(photo) => confirmOrderDelivered(photo.uri)}
+            onSubmitPhoto={(imgUrl) => confirmOrderDelivered(imgUrl)}
             onClose={() => setIsCameraOpen(false)}
           />
         </View>

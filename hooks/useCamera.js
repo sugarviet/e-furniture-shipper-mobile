@@ -26,7 +26,6 @@ function useCamera() {
         }
 
         const newPhoto = await cameraRef.current.takePictureAsync(options);
-        console.log(newPhoto)
         setPhoto(newPhoto)
     }
 

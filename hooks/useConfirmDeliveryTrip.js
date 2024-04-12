@@ -17,8 +17,7 @@ function useConfirmDeliveryTrip(id, order_id) {
             note: note,
         };
 
-        console.log(body)
-        // updateOrderStatus(body);
+        updateOrderStatus(body);
     };
 
     const confirmOrderFailed = (note) => {

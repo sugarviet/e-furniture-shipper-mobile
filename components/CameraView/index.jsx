@@ -9,9 +9,21 @@ import {
 } from "react-native";
 import Icon from "../Icon";
 import { IMAGES } from "../../constants/image";
+import useUploadImage from "../../hooks/useUploadImage";
 
 function CameraView({ onClose, onSubmitPhoto }) {
   const { cameraRef, takePhoto, photo, setPhoto } = useCamera();
+  const { uploadImage } = useUploadImage();
+
+  const handleSubmitPhoto = async (photo) => {
+    const submitPhoto = (imgUrl) => {
+      onSubmitPhoto(imgUrl);
+      setPhoto(undefined);
+      onClose();
+    };
+
+    await uploadImage(photo, submitPhoto);
+  };
 
   if (photo)
     return (
@@ -34,7 +46,7 @@ function CameraView({ onClose, onSubmitPhoto }) {
         </View>
         <View className="my-2">
           <TouchableOpacity
-            onPress={() => onSubmitPhoto(photo)}
+            onPress={() => handleSubmitPhoto(photo)}
             className="bg-white p-4 flex items-center"
           >
             <Text className="text-base">Customer Received</Text>
