@@ -8,6 +8,8 @@ function OrderDetail({ className, data }) {
   const { payment, date, order } = data;
   const { order_code } = order;
 
+  console.log(order);
+
   return (
     <View className={classNames(className)}>
       <Text className="font-semibold mb-1">Order detail</Text>

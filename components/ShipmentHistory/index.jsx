@@ -12,8 +12,7 @@ function ShipmentHistory({ data }) {
       </View>
       {data.map((item, i) => {
         const { order } = item;
-        const { order_tracking, order_products } = order;
-        const current_state = order_tracking[order_tracking.length - 1];
+        const { order_products, current_order_tracking } = order;
         const products = order_products
           .map(
             (order_product) =>
@@ -26,7 +25,7 @@ function ShipmentHistory({ data }) {
             key={i}
             products={products}
             order={order}
-            status={current_state.name}
+            status={current_order_tracking.name}
           />
         );
       })}

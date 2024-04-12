@@ -19,7 +19,7 @@ const STATUS_PROPS = {
     label: "success",
     icon: IMAGES.checked,
   },
-  fail: {
+  failed: {
     className: "bg-rose-500",
     label: "fail",
     icon: IMAGES.goods_return,
