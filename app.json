@@ -33,6 +33,22 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow E-Furniture to use your location."
         }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow E-Furniture to access your photos.",
+          "savePhotosPermission": "Allow E-Furniture to save photos.",
+          "isAccessMediaLocationEnabled": "true"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow  E-Furniture to access your camera",
+          "microphonePermission": "Allow  E-Furniture to access your microphone",
+          "recordAudioAndroid": true
+        }
       ]
     ],
     "scheme": "app-scheme"

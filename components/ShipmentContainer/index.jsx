@@ -18,8 +18,6 @@ function ShipmentContainer({ className }) {
 
   const { orders, _id, current_delivery } = data;
 
-  console.log(data);
-
   return (
     <ScrollView className={classNames(className)}>
       <ShipmentTrackingCard currentShipment={current_delivery} data={orders} />
