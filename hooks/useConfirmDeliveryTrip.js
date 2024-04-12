@@ -27,7 +27,8 @@ function useConfirmDeliveryTrip(id, order_id) {
             note: note,
         };
 
-        updateOrderStatus(body);
+        console.log(body)
+        // updateOrderStatus(body);
     };
 
     return { confirmOrderDelivered, confirmOrderFailed };

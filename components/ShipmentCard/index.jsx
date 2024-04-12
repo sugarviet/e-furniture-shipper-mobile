@@ -13,7 +13,7 @@ const STATUS_PROPS = {
   processing: {
     icon: IMAGES.pending_order,
   },
-  fail: {
+  failed: {
     icon: IMAGES.goods_return_3d,
   },
   done: {

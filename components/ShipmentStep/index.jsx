@@ -28,8 +28,8 @@ const customStyles = {
   currentStepLabelColor: COLORS.primary,
 };
 
-function ShipmentStep({ orderShippings }) {
-  const [step, setStep] = useState(0);
+function ShipmentStep({ orderShippings, currentShipment }) {
+  const [step, setStep] = useState(currentShipment);
 
   const labels = orderShippings.map((order) => {
     const { address, district, ward } = order;

@@ -19,5 +19,8 @@ import logout from '../assets/images/logout.png'
 import time from '../assets/images/time.png'
 import pending_order from '../assets/images/pending-order.png'
 import telephone from '../assets/images/telephone.png'
+import close from '../assets/images/close.png'
+import camera from '../assets/images/camera.png'
+import left_arrow from '../assets/images/left-arrow.png'
 
-export const IMAGES = { telephone, pending_order, time, logout, delivery_man, home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };
+export const IMAGES = { left_arrow, camera, close, telephone, pending_order, time, logout, delivery_man, home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };

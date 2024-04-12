@@ -1,23 +1,27 @@
-import { ScrollView, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import HeaderButton from "../../components/HeaderButton";
 import { IMAGES } from "../../constants/image";
 import Map from "../../components/Map";
 import useNavigation from "../../hooks/useNavigation";
-import { useLocalSearchParams } from "expo-router";
 import BottomSheet from "../../components/BottomSheet";
 import ReceiverBriefInfo from "../../components/ReceiverBriefInfo";
 import DeliveryTripDetail from "../../components/DeliveryTripDetail";
-import { useState } from "react";
 import OrderDetail from "../../components/OrderDetail";
 import ConfirmDeliveryFail from "../../components/ConfirmDeliveryFailed";
 import ConfirmCustomerReceived from "../../components/ConfirmCustomerReceived";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useFetchAuth } from "../../hooks/api-hooks";
 import { get_delivery_trip_api_of } from "../../api/deliveryApi";
+import CameraView from "../../components/CameraView";
+import { useState } from "react";
+import useConfirmDeliveryTrip from "../../hooks/useConfirmDeliveryTrip";
+import ReasonReturnOrderModal from "../../components/ReasonReturnOrderModal";
 
 function DeliveryScreen() {
   const { go_back } = useNavigation();
   const { token } = useAuthStore();
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
+  const [isReturnOrderModalOpen, setIsReturnOrderModalOpen] = useState(false);
   const { account_id } = token;
   const { data, isLoading } = useFetchAuth(
     get_delivery_trip_api_of(account_id)
@@ -26,8 +30,12 @@ function DeliveryScreen() {
   if (isLoading) return null;
   const { orders, _id } = data;
   const currentOrder = orders[1];
-
   const { order } = currentOrder;
+
+  const { confirmOrderDelivered, confirmOrderFailed } = useConfirmDeliveryTrip(
+    _id,
+    order._id
+  );
 
   const destinations = orders.map((orderShipping) => {
     const { address, district, ward } = orderShipping;
@@ -35,7 +43,7 @@ function DeliveryScreen() {
   });
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 relative">
       <View className="absolute top-16 left-4 z-50">
         <HeaderButton
           onPress={go_back}
@@ -60,18 +68,38 @@ function DeliveryScreen() {
           />
           <View className="flex-row py-4">
             <ConfirmDeliveryFail
-              order_id={order._id}
-              id={_id}
+              onPress={() => setIsReturnOrderModalOpen(true)}
               className="flex-1 mr-1"
             />
             <ConfirmCustomerReceived
-              order_id={order._id}
-              id={_id}
+              onPress={() => setIsCameraOpen(true)}
               className="flex-1 ml-1"
             />
           </View>
         </ScrollView>
       </BottomSheet>
+      {isCameraOpen && (
+        <View
+          style={{ backgroundColor: "rgba(1, 1, 1, 0.25)" }}
+          className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center z-50"
+        >
+          <CameraView
+            onSubmitPhoto={(imgUrl) => confirmOrderDelivered(imgUrl)}
+            onClose={() => setIsCameraOpen(false)}
+          />
+        </View>
+      )}
+      {isReturnOrderModalOpen && (
+        <View
+          style={{ backgroundColor: "rgba(1, 1, 1, 0.25)" }}
+          className="absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center z-50"
+        >
+          <ReasonReturnOrderModal
+            onConfirm={(reason) => confirmOrderFailed(reason)}
+            onClose={() => setIsReturnOrderModalOpen(false)}
+          />
+        </View>
+      )}
     </View>
   );
 }
