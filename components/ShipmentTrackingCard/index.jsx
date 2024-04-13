@@ -10,6 +10,7 @@ function ShipmentTrackingCard({ data, currentShipment }) {
 
   const total = data.reduce((total, cur) => total + cur.amount, 0);
 
+  const warehouse = data[0].order.warehouses[0].warehouse_id;
   const orderShippings = data.map((order) => order.order.order_shipping);
 
   return (
@@ -27,7 +28,7 @@ function ShipmentTrackingCard({ data, currentShipment }) {
         </View>
         <ShipmentStep
           currentShipment={currentShipment}
-          orderShippings={orderShippings}
+          orderShippings={[...orderShippings, warehouse]}
         />
       </TouchableOpacity>
     </View>

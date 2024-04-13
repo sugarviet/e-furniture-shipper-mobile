@@ -8,7 +8,7 @@ import { LogBox } from "react-native";
 import { useAuthStore } from "../stores/useAuthStore";
 
 const RootLayout = () => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const queryClient = new QueryClient();
   const { token } = useAuthStore();
 

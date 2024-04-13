@@ -16,11 +16,14 @@ function ShipmentContainer({ className }) {
 
   if (isLoading) return;
 
-  const { orders, _id, current_delivery } = data;
+  const { orders, _id, current_delivery, status } = data;
+
+  const currentDelivery =
+    status === 1 ? current_delivery + 1 : current_delivery;
 
   return (
     <ScrollView className={classNames(className)}>
-      <ShipmentTrackingCard currentShipment={current_delivery} data={orders} />
+      <ShipmentTrackingCard currentShipment={currentDelivery} data={orders} />
       <View className="pb-12">
         <ShipmentHistory data={orders} />
         <ConfirmDoneDeliveryTrip id={_id} className="m-2" />

@@ -6,12 +6,15 @@ import { useEffect, useState } from "react";
 import useLocation from "../../hooks/useLocation";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
+import { GOOGLE_API_KEY } from "../../constants/key";
 
-function Map({ destinations }) {
+function Map({ destinations, currentDestination = 0 }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
 
-  const { data, isLoading } = useFetch(get_geo_code_api(destinations[0]));
+  const { data, isLoading } = useFetch(
+    get_geo_code_api(destinations[currentDestination])
+  );
 
   const [angle, setAngle] = useState();
 
@@ -26,14 +29,15 @@ function Map({ destinations }) {
   const region = {
     latitude: (toLocation.latitude + curLocation.latitude) / 2,
     longitude: (toLocation.longitude + curLocation.longitude) / 2,
-    latitudeDelta: Math.abs(toLocation.latitude - curLocation.latitude) * 3,
-    longitudeDelta: Math.abs(toLocation.longitude - curLocation.longitude) * 3,
+    latitudeDelta: Math.abs(toLocation.latitude - curLocation.latitude) * 2,
+    longitudeDelta: Math.abs(toLocation.longitude - curLocation.longitude) * 2,
   };
 
   return (
     <MapView
       // followsUserLocation
       // showsUserLocation
+      provider={PROVIDER_GOOGLE}
       style={{ flex: 1 }}
       initialRegion={region}
     >
@@ -42,6 +46,7 @@ function Map({ destinations }) {
         origin={curLocation}
         destination={toLocation}
       /> */}
+
       {destinations.map((destination, i) => (
         <DestinationMarker key={i} address={destination} />
       ))}

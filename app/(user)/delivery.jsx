@@ -28,7 +28,7 @@ function DeliveryScreen() {
   );
 
   if (isLoading) return null;
-  const { orders, _id, current_delivery } = data;
+  const { orders, _id, current_delivery, status } = data;
   const currentOrder = orders[current_delivery];
   const { order } = currentOrder;
 
@@ -37,9 +37,12 @@ function DeliveryScreen() {
     order._id
   );
 
-  const destinations = orders.map((orderShipping) => {
-    const { address, district, ward } = orderShipping;
-    return `${address} ${ward} ${district} Thành phố Hồ Chí Minh Viêt Nam`;
+  const warehouse = orders[0].order.warehouses[0].warehouse_id;
+
+  const destinations = [...orders, warehouse].map((orderShipping) => {
+    const { address, district, ward, location } = orderShipping;
+    const street = address || location;
+    return `${street} ${ward} ${district} Thành phố Hồ Chí Minh Viêt Nam`;
   });
 
   return (
@@ -51,33 +54,40 @@ function DeliveryScreen() {
           source={IMAGES.back_arrow}
         />
       </View>
-      <Map destinations={destinations} />
-      <BottomSheet>
-        <ScrollView className="px-4">
-          <ReceiverBriefInfo
-            data={currentOrder.order.order_shipping}
-            className="border-b py-4 border-gray-300"
-          />
-          <DeliveryTripDetail
-            data={currentOrder}
-            className="border-b py-4 border-gray-300"
-          />
-          <OrderDetail
-            className="border-b py-4 border-gray-300"
-            data={currentOrder}
-          />
-          <View className="flex-row py-4">
-            <ConfirmDeliveryFail
-              onPress={() => setIsReturnOrderModalOpen(true)}
-              className="flex-1 mr-1"
+      <Map
+        currentDestination={
+          status === 1 ? current_delivery + 1 : current_delivery
+        }
+        destinations={destinations}
+      />
+      {status !== 1 && (
+        <BottomSheet>
+          <ScrollView className="px-4">
+            <ReceiverBriefInfo
+              data={currentOrder.order.order_shipping}
+              className="border-b py-4 border-gray-300"
             />
-            <ConfirmCustomerReceived
-              onPress={() => setIsCameraOpen(true)}
-              className="flex-1 ml-1"
+            <DeliveryTripDetail
+              data={currentOrder}
+              className="border-b py-4 border-gray-300"
             />
-          </View>
-        </ScrollView>
-      </BottomSheet>
+            <OrderDetail
+              className="border-b py-4 border-gray-300"
+              data={currentOrder}
+            />
+            <View className="flex-row py-4">
+              <ConfirmDeliveryFail
+                onPress={() => setIsReturnOrderModalOpen(true)}
+                className="flex-1 mr-1"
+              />
+              <ConfirmCustomerReceived
+                onPress={() => setIsCameraOpen(true)}
+                className="flex-1 ml-1"
+              />
+            </View>
+          </ScrollView>
+        </BottomSheet>
+      )}
       {isCameraOpen && (
         <View
           style={{ backgroundColor: "rgba(1, 1, 1, 0.25)" }}

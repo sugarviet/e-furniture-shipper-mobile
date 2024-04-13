@@ -29,23 +29,22 @@ const customStyles = {
 };
 
 function ShipmentStep({ orderShippings, currentShipment }) {
-  const [step, setStep] = useState(currentShipment);
-
   const labels = orderShippings.map((order) => {
-    const { address, district, ward } = order;
-    return `${address} ${district} ${ward}`;
+    const { address, district, ward, location } = order;
+    const street = address || location;
+    return `${street} ${district} ${ward}`;
   });
   return (
     <View className="mt-4">
       <StepIndicator
         renderStepIndicator={({ position }) => {
-          return position === step ? (
+          return position === currentShipment ? (
             <AnimationView className="w-10 h-10" source={ANIMATIONS.delivery} />
           ) : null;
         }}
         stepCount={orderShippings.length}
         labels={labels}
-        currentPosition={step}
+        currentPosition={currentShipment}
         customStyles={customStyles}
       />
     </View>
