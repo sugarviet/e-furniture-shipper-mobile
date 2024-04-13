@@ -69,6 +69,7 @@ export default function ReasonReturnOrderModal({ onClose, onConfirm }) {
           onPress={() => {
             const reason = radioButtons.find((i) => i.id === selectedId).value;
             onConfirm(reason);
+            onClose();
           }}
           className="flex items-center flex-1 py-4"
         >
