@@ -28,24 +28,24 @@ const customStyles = {
   currentStepLabelColor: COLORS.primary,
 };
 
-function ShipmentStep({ orderShippings, currentShipment }) {
-  const [step, setStep] = useState(currentShipment);
-
-  const labels = orderShippings.map((order) => {
-    const { address, district, ward } = order;
-    return `${address} ${district} ${ward}`;
+function ShipmentStep({ data, currentShipment = 0 }) {
+  const labels = data.map((route) => {
+    const { address, district, ward, location } = route;
+    const street = address || location;
+    return `${street} ${district} ${ward}`;
   });
+
   return (
     <View className="mt-4">
       <StepIndicator
         renderStepIndicator={({ position }) => {
-          return position === step ? (
+          return position === currentShipment ? (
             <AnimationView className="w-10 h-10" source={ANIMATIONS.delivery} />
           ) : null;
         }}
-        stepCount={orderShippings.length}
+        stepCount={data.length}
         labels={labels}
-        currentPosition={step}
+        currentPosition={currentShipment}
         customStyles={customStyles}
       />
     </View>

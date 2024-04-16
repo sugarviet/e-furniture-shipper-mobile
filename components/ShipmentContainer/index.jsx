@@ -16,14 +16,29 @@ function ShipmentContainer({ className }) {
 
   if (isLoading) return;
 
-  const { orders, _id, current_delivery } = data;
+  const { orders, _id, warehouse, current_state } = data;
+
+  const orderShippings = orders.map((item) => {
+    const { order } = item;
+    return order.order_shipping;
+  });
+
+  const routes = [warehouse, ...orderShippings, warehouse];
+  const total = orders.reduce((total, order) => total + order.amount, 0);
+
+  const { stateValue, item } = current_state;
+  const currentRoute =
+    stateValue === 1 ? 1 + item : stateValue === 2 ? routes.length - 1 : 0;
 
   return (
     <ScrollView className={classNames(className)}>
-      <ShipmentTrackingCard currentShipment={current_delivery} data={orders} />
+      <ShipmentTrackingCard
+        total={total}
+        currentShipment={currentRoute}
+        data={routes}
+      />
       <View className="pb-12">
         <ShipmentHistory data={orders} />
-        <ConfirmDoneDeliveryTrip id={_id} className="m-2" />
       </View>
     </ScrollView>
   );

@@ -2,16 +2,16 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import DestinationMarker from "../DestinationMarker";
 import TruckMarker from "../TruckMarker";
 import MapDirection from "../MapDirection";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useLocation from "../../hooks/useLocation";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
 
-function Map({ destinations }) {
+function Map({ destination }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
 
-  const { data, isLoading } = useFetch(get_geo_code_api(destinations[0]));
+  const { data, isLoading } = useFetch(get_geo_code_api(destination));
 
   const [angle, setAngle] = useState();
 
@@ -31,20 +31,13 @@ function Map({ destinations }) {
   };
 
   return (
-    <MapView
-      // followsUserLocation
-      // showsUserLocation
-      style={{ flex: 1 }}
-      initialRegion={region}
-    >
-      {/* <MapDirection
+    <MapView style={{ flex: 1 }} initialRegion={region}>
+      <MapDirection
         onRotate={setAngle}
         origin={curLocation}
         destination={toLocation}
-      /> */}
-      {destinations.map((destination, i) => (
-        <DestinationMarker key={i} address={destination} />
-      ))}
+      />
+      <DestinationMarker address={destination} />
 
       {!curLocationLoading && (
         <TruckMarker angle={angle} coordinate={curLocation} />

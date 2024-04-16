@@ -6,3 +6,5 @@ export const PAYMENT_METHOD = {
         title: "Online Payment",
     }
 };
+
+export const DELIVERY_TRIP_STATE = ["pick up package", "on delivery", "return to warehouse", "done"]
