@@ -1,7 +1,7 @@
 import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { classNames } from "../../utils/classNames";
-import useConfirmDeliveryTrip from "../../hooks/useConfirmDeliveryTrip";
+import useDeliveryTrip from "../../hooks/useDeliveryTrip";
 import Icon from "../Icon";
 import { IMAGES } from "../../constants/image";
 

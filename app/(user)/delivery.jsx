@@ -1,21 +1,19 @@
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import HeaderButton from "../../components/HeaderButton";
 import { IMAGES } from "../../constants/image";
 import Map from "../../components/Map";
 import useNavigation from "../../hooks/useNavigation";
 import BottomSheet from "../../components/BottomSheet";
-import ReceiverBriefInfo from "../../components/ReceiverBriefInfo";
-import DeliveryTripDetail from "../../components/DeliveryTripDetail";
-import OrderDetail from "../../components/OrderDetail";
-import ConfirmDeliveryFail from "../../components/ConfirmDeliveryFailed";
-import ConfirmCustomerReceived from "../../components/ConfirmCustomerReceived";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useFetchAuth } from "../../hooks/api-hooks";
 import { get_delivery_trip_api_of } from "../../api/deliveryApi";
 import CameraView from "../../components/CameraView";
 import { useState } from "react";
-import useConfirmDeliveryTrip from "../../hooks/useConfirmDeliveryTrip";
+import useDeliveryTrip from "../../hooks/useDeliveryTrip";
 import ReasonReturnOrderModal from "../../components/ReasonReturnOrderModal";
+import OrderShipmentInformation from "../../components/OrderShipmentInformation";
+import PickUpProduct from "../../components/PickUpProduct";
+import DeliverySummary from "../../components/DeliveryTripSummary";
 
 function DeliveryScreen() {
   const { go_back } = useNavigation();
@@ -28,19 +26,72 @@ function DeliveryScreen() {
   );
 
   if (isLoading) return null;
-  const { orders, _id, current_delivery } = data;
-  const currentOrder = orders[current_delivery];
+
+  const { orders, _id, current_state, warehouse, status } = data;
+  const productsOnTrip = orders.reduce((list, cur) => {
+    const { order } = cur;
+    const { order_products } = order;
+
+    return [...list, ...order_products];
+  }, []);
+
+  const orderShippings = orders.map((item) => {
+    const { order } = item;
+    return order.order_shipping;
+  });
+
+  const routes = [warehouse, ...orderShippings, warehouse];
+  const { stateValue, item } = current_state;
+  const currentRoute =
+    stateValue === 1 ? 1 + item : stateValue === 2 ? routes.length - 1 : 0;
+
+  const currentOrder = orders[item];
   const { order } = currentOrder;
 
-  const { confirmOrderDelivered, confirmOrderFailed } = useConfirmDeliveryTrip(
-    _id,
-    order._id
-  );
+  const {
+    confirmOrderDelivered,
+    confirmOrderFailed,
+    startDeliveryTrip,
+    completeDeliveryTrip,
+  } = useDeliveryTrip(_id, order._id);
 
-  const destinations = orders.map((orderShipping) => {
-    const { address, district, ward } = orderShipping;
-    return `${address} ${ward} ${district} Thành phố Hồ Chí Minh Viêt Nam`;
+  const destinations = routes.map((orderShipping) => {
+    const { address, district, ward, location } = orderShipping;
+    const street = address || location;
+    return `${street} ${ward} ${district} Thành phố Hồ Chí Minh Viêt Nam`;
   });
+
+  const currentDestination = destinations[currentRoute];
+
+  const DELIVERY_TRIP_STATE_RENDER = [
+    {
+      ContainerComponent: (
+        <PickUpProduct
+          data={productsOnTrip}
+          location={currentDestination}
+          onStartDeliveryTrip={startDeliveryTrip}
+        />
+      ),
+    },
+    {
+      ContainerComponent: (
+        <OrderShipmentInformation
+          data={currentOrder}
+          onConfirmCustomerReceived={() => setIsCameraOpen(true)}
+          onConfirmDeliveryFailed={() => setIsReturnOrderModalOpen(true)}
+        />
+      ),
+    },
+    {
+      ContainerComponent: (
+        <DeliverySummary
+          onCompleteDeliveryTrip={completeDeliveryTrip}
+          data={orders}
+          location={currentDestination}
+        />
+      ),
+    },
+  ];
 
   return (
     <View className="flex-1 relative">
@@ -51,33 +102,12 @@ function DeliveryScreen() {
           source={IMAGES.back_arrow}
         />
       </View>
-      <Map destinations={destinations} />
+      <Map destination={currentDestination} />
+
       <BottomSheet>
-        <ScrollView className="px-4">
-          <ReceiverBriefInfo
-            data={currentOrder.order.order_shipping}
-            className="border-b py-4 border-gray-300"
-          />
-          <DeliveryTripDetail
-            data={currentOrder}
-            className="border-b py-4 border-gray-300"
-          />
-          <OrderDetail
-            className="border-b py-4 border-gray-300"
-            data={currentOrder}
-          />
-          <View className="flex-row py-4">
-            <ConfirmDeliveryFail
-              onPress={() => setIsReturnOrderModalOpen(true)}
-              className="flex-1 mr-1"
-            />
-            <ConfirmCustomerReceived
-              onPress={() => setIsCameraOpen(true)}
-              className="flex-1 ml-1"
-            />
-          </View>
-        </ScrollView>
+        {DELIVERY_TRIP_STATE_RENDER[status].ContainerComponent}
       </BottomSheet>
+
       {isCameraOpen && (
         <View
           style={{ backgroundColor: "rgba(1, 1, 1, 0.25)" }}

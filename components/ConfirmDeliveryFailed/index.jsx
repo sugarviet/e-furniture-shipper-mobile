@@ -2,7 +2,7 @@ import { Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { classNames } from "../../utils/classNames";
 
-export default function ConfirmDeliveryFail({ className, onPress }) {
+export default function ConfirmDeliveryFailed({ className, onPress }) {
   return (
     <TouchableOpacity
       onPress={onPress}

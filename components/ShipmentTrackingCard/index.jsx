@@ -5,12 +5,8 @@ import { IMAGES } from "../../constants/image";
 import Icon from "../Icon";
 import useNavigation from "../../hooks/useNavigation";
 
-function ShipmentTrackingCard({ data, currentShipment }) {
+function ShipmentTrackingCard({ data, currentShipment, total }) {
   const { go_to_delivery } = useNavigation();
-
-  const total = data.reduce((total, cur) => total + cur.amount, 0);
-
-  const orderShippings = data.map((order) => order.order.order_shipping);
 
   return (
     <View className="my-2 p-2">
@@ -25,10 +21,7 @@ function ShipmentTrackingCard({ data, currentShipment }) {
           <ShipmentBriefInfo total={total} />
           <Icon className="w-4 h-4" source={IMAGES.right_arrow} />
         </View>
-        <ShipmentStep
-          currentShipment={currentShipment}
-          orderShippings={orderShippings}
-        />
+        <ShipmentStep currentShipment={currentShipment} data={data} />
       </TouchableOpacity>
     </View>
   );
