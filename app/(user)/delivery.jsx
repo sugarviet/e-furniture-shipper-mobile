@@ -28,8 +28,8 @@ function DeliveryScreen() {
   );
 
   if (isLoading) return null;
-  const { orders, _id } = data;
-  const currentOrder = orders[1];
+  const { orders, _id, current_delivery } = data;
+  const currentOrder = orders[current_delivery];
   const { order } = currentOrder;
 
   const { confirmOrderDelivered, confirmOrderFailed } = useConfirmDeliveryTrip(

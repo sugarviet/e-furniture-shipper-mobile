@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-const BASE_URL = "http://34.126.181.161:4646/api/v1";
+const BASE_URL = "https://dream-editor.tech/api/v1";
 
 export const API = axios.create({
     baseURL: BASE_URL,

@@ -1,18 +1,21 @@
 import { useAuthStore } from '../stores/useAuthStore';
 import useSocketStore from '../stores/useSocketStore';
+import { useDeliveryStore } from '../stores/useDeliveryStore'
 
 const useSocket = () => {
     const { socket } = useSocketStore();
     const { token } = useAuthStore()
-    const { account_id } = token;
+    const { setCurrentState } = useDeliveryStore();
 
     const registerId = () => {
+        const { account_id } = token;
         socket.emit("add-user", account_id);
     }
 
     const subscribeStateChange = () => {
         socket.on("send-noti-to-delivery", (args) => {
-            console.log("pu ca chi")
+            console.log(args);
+            // setCurrentState(args);
         })
     }
 
