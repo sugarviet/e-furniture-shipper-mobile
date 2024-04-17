@@ -32,11 +32,11 @@ function Map({ destination }) {
 
   return (
     <MapView style={{ flex: 1 }} initialRegion={region}>
-      <MapDirection
+      {/* <MapDirection
         onRotate={setAngle}
         origin={curLocation}
         destination={toLocation}
-      />
+      /> */}
       <DestinationMarker address={destination} />
 
       {!curLocationLoading && (
