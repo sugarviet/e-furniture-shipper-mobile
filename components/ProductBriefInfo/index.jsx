@@ -13,7 +13,7 @@ function ProductBriefInfo({ data, className }) {
       )}
     >
       <View className="flex-row flex-1">
-        <Image className="w-12 h-10 object-contain mr-2" src={thumbs[0]} />
+        <Image className="w-12 h-12 object-contain mr-2" src={thumbs[0]} />
         <View>
           <Text>{name}</Text>
           <Text className="text-gray-500 text-xs">x {quantity}</Text>

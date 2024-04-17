@@ -18,9 +18,6 @@ function PickUpPackageContainer({ className }) {
           className="w-96 h-96"
           source={ANIMATIONS.location_direction}
         />
-        <SafeAreaView>
-          <PickUpPackage />
-        </SafeAreaView>
       </View>
     </View>
   );
