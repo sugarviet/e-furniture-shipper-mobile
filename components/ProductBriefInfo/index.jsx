@@ -4,7 +4,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 
 function ProductBriefInfo({ data, className }) {
   const { name, thumbs } = data.product;
-  const { quantity, price } = data;
+  const { quantity, variation } = data;
   return (
     <View
       className={classNames(
@@ -12,14 +12,13 @@ function ProductBriefInfo({ data, className }) {
         className
       )}
     >
-      <View className="flex-row flex-1">
+      <View className="flex-row flex-1 items-center">
         <Image className="w-12 h-12 object-contain mr-2" src={thumbs[0]} />
         <View>
           <Text>{name}</Text>
           <Text className="text-gray-500 text-xs">x {quantity}</Text>
         </View>
       </View>
-      <Text>{formatCurrency(price)}</Text>
     </View>
   );
 }
