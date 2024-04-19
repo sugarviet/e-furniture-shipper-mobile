@@ -4,7 +4,6 @@ import CheckBox from "react-native-check-box";
 import { COLORS } from "../../constants/color";
 import { IMAGES } from "../../constants/image";
 import Icon from "../Icon";
-import { formatCurrency } from "../../utils/formatCurrency";
 import { classNames } from "../../utils/classNames";
 import ProductBriefInfo from "../ProductBriefInfo";
 
@@ -16,22 +15,19 @@ export default function PickUpProduct({ data, onStartDeliveryTrip, location }) {
   };
 
   const removeFromSelectProducts = (product) => {
-    setSelectProducts([...selectProducts.filter((i) => i._id !== product._id)]);
+    setSelectProducts([
+      ...selectProducts.filter((i) => i.code !== product.code),
+    ]);
   };
 
-  const isOrderSelected = (product) => {
-    return selectProducts.some((i) => i._id === product._id);
+  const isProductSelected = (product) => {
+    return selectProducts.some((i) => i.code === product.code);
   };
 
   const handleSelectProduct = (product) => {
-    if (isOrderSelected(product)) removeFromSelectProducts(product);
-    if (!isOrderSelected(product)) addToSelectProducts(product);
+    if (isProductSelected(product)) removeFromSelectProducts(product);
+    if (!isProductSelected(product)) addToSelectProducts(product);
   };
-
-  const total = selectProducts.reduce(
-    (total, product) => total + product.price,
-    0
-  );
 
   return (
     <View className="justify-between flex-1">
@@ -56,7 +52,7 @@ export default function PickUpProduct({ data, onStartDeliveryTrip, location }) {
               >
                 <CheckBox
                   className="ml-2"
-                  isChecked={isOrderSelected(product)}
+                  isChecked={isProductSelected(product)}
                   onClick={() => {
                     handleSelectProduct(product);
                   }}
@@ -82,10 +78,6 @@ export default function PickUpProduct({ data, onStartDeliveryTrip, location }) {
               <Text className="text-sm font-bold">{selectProducts.length}</Text>{" "}
               products in total
             </Text>
-          </View>
-          <View className="flex-1 items-end justify-center px-2">
-            <Text className="text-xs">Total:</Text>
-            <Text className="font-bold">{formatCurrency(total)}</Text>
           </View>
         </View>
         <TouchableOpacity

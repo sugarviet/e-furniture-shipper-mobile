@@ -27,12 +27,22 @@ function DeliveryScreen() {
 
   if (isLoading) return null;
 
-  const { orders, _id, current_state, warehouse, status } = data;
+  const { orders, _id, current_state, warehouse, status, state } = data;
   const productsOnTrip = orders.reduce((list, cur) => {
     const { order } = cur;
     const { order_products } = order;
 
-    return [...list, ...order_products];
+    const merged_products = order_products.reduce((products, cur) => {
+      const productsClone = products.map((obj) => Object.assign({}, obj));
+      const existed_item = productsClone.find((i) => i.code === cur.code);
+
+      if (!existed_item) return [...products, cur];
+
+      existed_item.quantity += cur.quantity;
+      return [...productsClone];
+    }, list);
+
+    return merged_products;
   }, []);
 
   const orderShippings = orders.map((item) => {
@@ -85,6 +95,8 @@ function DeliveryScreen() {
     {
       ContainerComponent: (
         <DeliverySummary
+          tripState={state}
+          productsOnTrip={productsOnTrip}
           onCompleteDeliveryTrip={completeDeliveryTrip}
           data={orders}
           location={currentDestination}
