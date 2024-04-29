@@ -6,7 +6,7 @@ const BottomSheet = ({ children }) => {
 
   return (
     <GorhomeBottomSheet
-      index={1}
+      index={0}
       snapPoints={snapPoints}
       handleIndicatorStyle={{ backgroundColor: "#ccc" }}
       keyboardBehavior="fillParent"

@@ -2,36 +2,46 @@ import { Text, View } from "react-native";
 import StepIndicator from "react-native-step-indicator";
 import { COLORS } from "../../constants/color";
 import { formatDateWithType, formatTime } from "../../utils/formatDate";
+import Icon from "../Icon";
+import { IMAGES } from "../../constants/image";
+
+function convertToSnakeCase(text) {
+  return text.toLowerCase().split(" ").join("_");
+}
 
 const STEPS = {
-  //   Pending: {
-  //     activeIcon: <Icon2D name="pending" activated={COLORS.primary} size={15} />,
-  //     unactiveIcon: <Icon2D name="pending" activated="#d3d3d3" size={15} />,
-  //   },
-  //   Processing: {
-  //     activeIcon: <Icon2D name="package" activated={COLORS.primary} size={15} />,
-  //     unactiveIcon: <Icon2D name="package" activated="#d3d3d3" size={15} />,
-  //   },
-  //   Shipping: {
-  //     activeIcon: <Icon2D name="ship" activated={COLORS.primary} size={12} />,
-  //     unactiveIcon: <Icon2D name="ship" activated="#d3d3d3" size={10} />,
-  //   },
-  //   Done: {
-  //     activeIcon: <Icon2D name="done" activated={COLORS.primary} size={18} />,
-  //     unactiveIcon: <Icon2D name="done" activated="#d3d3d3" size={15} />,
-  //   },
-  //   Failed: {
-  //     activeIcon: <Icon2D name="fail" activated={COLORS.primary} size={15} />,
-  //     unactiveIcon: <Icon2D name="fail" activated="#d3d3d3" size={13} />,
-  //   },
-  //   Refunded: {
-  //     activeIcon: <Icon2D name="refund" activated={COLORS.primary} size={17} />,
-  //     unactiveIcon: <Icon2D name="refund" activated="#d3d3d3" size={15} />,
-  //   },
-  //   Cancelled: {
-  //     activeIcon: <Icon2D name="cancel" activated={COLORS.primary} size={18} />,
-  //     unactiveIcon: <Icon2D name="cancel" activated="#d3d3d3" size={16} />,
-  //   },
+  return_to_warehouse: {
+    activeIcon: (
+      <Icon
+        className="w-6 h-6"
+        tintColor={COLORS.primary}
+        source={IMAGES.reverse_logistic}
+      />
+    ),
+    unactiveIcon: (
+      <Icon
+        className="w-6 h-6"
+        tintColor="#d3d3d3"
+        source={IMAGES.reverse_logistic}
+      />
+    ),
+  },
+  pick_up_package: {
+    activeIcon: (
+      <Icon
+        className="w-5 h-5"
+        tintColor={COLORS.primary}
+        source={IMAGES.pick_up_package_location}
+      />
+    ),
+    unactiveIcon: (
+      <Icon
+        className="w-5 h-5"
+        tintColor="#d3d3d3"
+        source={IMAGES.pick_up_package_location}
+      />
+    ),
+  },
 };
 
 const customStyles = {
@@ -41,7 +51,7 @@ const customStyles = {
   currentStepStrokeWidth: 1,
   stepStrokeWidth: 1,
   stepStrokeFinishedColor: "#d3d3d3",
-  stepStrokeCurrentColor: "black",
+  stepStrokeCurrentColor: COLORS.primary,
   stepStrokeUnFinishedColor: `#d3d3d3`,
   separatorUnFinishedColor: `#d3d3d3`,
   stepIndicatorFinishedColor: "white",
@@ -57,17 +67,16 @@ const customStyles = {
 };
 
 const classNameMap = {
-  1: "h-20",
-  2: "h-36",
-  3: "h-64",
-  4: "h-80",
+  1: "h-16",
+  2: "h-28",
+  3: "h-48",
+  4: "h-60",
   5: "h-full",
 };
 
-function VerticalOrderStep({ data }) {
-  const labels = data.map((track) => track.name).reverse();
+function VerticalOrderStep({ data, labels }) {
   const note = data.map((track) => track.note).reverse();
-  const date = data.map((track) => track.date).reverse();
+  const date = data.map((track) => track.time).reverse();
 
   const currentPosition = 0;
 
@@ -76,12 +85,12 @@ function VerticalOrderStep({ data }) {
   const className = classNameMap[deliveryLength] || "h-32";
 
   const renderLabel = ({ position, label, currentPosition }) => {
-    const color = position === currentPosition ? "#000" : "#cfcfcf";
-    const dateColor = position === currentPosition ? "#000" : "#aaa";
+    const color = position === currentPosition ? COLORS.primary : "#cfcfcf";
+    const dateColor = position === currentPosition ? COLORS.primary : "#aaa";
     return (
       <View className="pl-2 flex flex-row justify-between w-full pr-10 relative">
-        <View className="flex flex-col max-w-[250px]">
-          <Text className="font-urbanistSemiBold" style={{ color }}>
+        <View className="flex flex-col">
+          <Text className="text-xs" style={{ color }}>
             {label}
           </Text>
           <Text style={{ color }}>
@@ -112,14 +121,24 @@ function VerticalOrderStep({ data }) {
     <View className={`pl-14 ${className}`}>
       <StepIndicator
         renderStepIndicator={({ position }) => {
-          const state = labels[position];
+          const state = convertToSnakeCase(labels[position]);
           return (
             <View>
-              {state in STEPS
-                ? currentPosition === position
-                  ? STEPS[state].activeIcon
-                  : STEPS[state].unactiveIcon
-                : null}
+              {state in STEPS ? (
+                currentPosition === position ? (
+                  STEPS[state].activeIcon
+                ) : (
+                  STEPS[state].unactiveIcon
+                )
+              ) : currentPosition === position ? (
+                <Icon className="w-4 h-4" source={IMAGES.delivery_truck} />
+              ) : (
+                <Icon
+                  className="w-4 h-4"
+                  tintColor="#d3d3d3"
+                  source={IMAGES.delivery_truck}
+                />
+              )}
             </View>
           );
         }}
