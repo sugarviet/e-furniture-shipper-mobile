@@ -22,5 +22,8 @@ import telephone from '../assets/images/telephone.png'
 import close from '../assets/images/close.png'
 import camera from '../assets/images/camera.png'
 import left_arrow from '../assets/images/left-arrow.png'
+import receiver from '../assets/images/receiver.png'
+import pick_up_package_location from "../assets/images/pick_up_package_location.png"
+import reverse_logistic from '../assets/images/reverse-logistic.png'
 
-export const IMAGES = { left_arrow, camera, close, telephone, pending_order, time, logout, delivery_man, home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };
+export const IMAGES = { reverse_logistic, pick_up_package_location, receiver, left_arrow, camera, close, telephone, pending_order, time, logout, delivery_man, home_marker, goods_return_3d, goods_delivered, goods_return, checked, open_package, back_arrow, truck_3d, user, padlock, warning, logo, delivery_truck, location_tracking, goods, right_arrow };

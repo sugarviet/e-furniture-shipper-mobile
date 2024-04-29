@@ -14,8 +14,11 @@ import ReasonReturnOrderModal from "../../components/ReasonReturnOrderModal";
 import OrderShipmentInformation from "../../components/OrderShipmentInformation";
 import PickUpProduct from "../../components/PickUpProduct";
 import DeliverySummary from "../../components/DeliveryTripSummary";
+import MapHeader from "../../components/MapHeader";
 
 function DeliveryScreen() {
+  const [duration, setDuration] = useState(0);
+  const [distance, setDistance] = useState(0);
   const { go_back } = useNavigation();
   const { token } = useAuthStore();
   const [isCameraOpen, setIsCameraOpen] = useState(false);
@@ -107,14 +110,24 @@ function DeliveryScreen() {
 
   return (
     <View className="flex-1 relative">
-      <View className="absolute top-16 left-4 z-50">
+      <View className="absolute top-16 left-4 z-50 flex-row items-center">
         <HeaderButton
           onPress={go_back}
           className="w-4 h-4"
           source={IMAGES.back_arrow}
         />
+        <MapHeader
+          duration={duration}
+          distance={distance}
+          destination={currentDestination}
+          className="flex-1"
+        />
       </View>
-      <Map destination={currentDestination} />
+      <Map
+        setDistance={setDistance}
+        setDuration={setDuration}
+        destination={currentDestination}
+      />
 
       <BottomSheet>
         {DELIVERY_TRIP_STATE_RENDER[status].ContainerComponent}

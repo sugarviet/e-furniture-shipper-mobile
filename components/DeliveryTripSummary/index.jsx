@@ -8,6 +8,7 @@ import useNavigation from "../../hooks/useNavigation";
 import { formatCurrency } from "../../utils/formatCurrency";
 import ProductBriefInfo from "../ProductBriefInfo";
 import { formatDateTime } from "../../utils/formatDate";
+import VerticalOrderStep from "../VerticalOrderStep";
 
 export default function DeliverySummary({
   tripState,
@@ -44,33 +45,24 @@ export default function DeliverySummary({
         </View>
         <View className="mb-2">
           <Text className="font-semibold mb-1">Tracking delivery trip</Text>
-          {tripState.map((trip, i) => {
-            const { state, time, item, stateValue } = trip;
-
-            const name =
-              stateValue === 1
-                ? `${state} ${data[item].order.order_code}`
-                : state;
-
-            return (
-              <View className="flex-row items-center justify-between">
-                <Text className="text-gray-500 text-xs">{`${name}:`}</Text>
-                <Text className="text-gray-500 text-xs">
-                  {formatDateTime(time)}
-                </Text>
-              </View>
-            );
-          })}
+          <VerticalOrderStep
+            data={tripState}
+            labels={tripState
+              .map((trip) => {
+                const { state, item, stateValue } = trip;
+                return stateValue === 1
+                  ? `${state} ${data[item].order.order_code}`
+                  : state;
+              })
+              .reverse()}
+          />
         </View>
         <View className="mb-2">
           <Text className="font-semibold mb-1">Products on trip</Text>
           {productsOnTrip.map((product, index) => {
             return (
               <View key={index}>
-                <ProductBriefInfo
-                  className="bg-transparent px-0"
-                  data={product}
-                />
+                <ProductBriefInfo data={product} />
               </View>
             );
           })}

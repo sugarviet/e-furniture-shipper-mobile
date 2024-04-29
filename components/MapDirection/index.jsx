@@ -3,7 +3,7 @@ import { COLORS } from "../../constants/color";
 import { useState } from "react";
 import { GOOGLE_API_KEY } from "../../constants/key";
 
-function MapDirection({ origin, destination, onRotate }) {
+function MapDirection({ origin, destination, onRotate, onMove }) {
   const [isReady, setIsReady] = useState(false);
   const [curLocation, setCurLocation] = useState(origin);
 
@@ -40,6 +40,7 @@ function MapDirection({ origin, destination, onRotate }) {
           onRotate(angle);
         }
 
+        onMove(result);
         setCurLocation(nextLocation);
       }}
     />

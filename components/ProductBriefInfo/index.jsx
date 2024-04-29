@@ -5,6 +5,7 @@ import { formatCurrency } from "../../utils/formatCurrency";
 function ProductBriefInfo({ data, className }) {
   const { name, thumbs } = data.product;
   const { quantity, variation } = data;
+  console.log(data);
   return (
     <View
       className={classNames(
