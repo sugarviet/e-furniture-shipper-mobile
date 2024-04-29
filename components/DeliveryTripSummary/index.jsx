@@ -8,6 +8,7 @@ import useNavigation from "../../hooks/useNavigation";
 import { formatCurrency } from "../../utils/formatCurrency";
 import ProductBriefInfo from "../ProductBriefInfo";
 import { formatDateTime } from "../../utils/formatDate";
+import VerticalOrderStep from "../VerticalOrderStep";
 
 export default function DeliverySummary({
   tripState,
@@ -44,7 +45,8 @@ export default function DeliverySummary({
         </View>
         <View className="mb-2">
           <Text className="font-semibold mb-1">Tracking delivery trip</Text>
-          {tripState.map((trip, i) => {
+          <VerticalOrderStep data={tripState} />
+          {/* {tripState.map((trip, i) => {
             const { state, time, item, stateValue } = trip;
 
             const name =
@@ -60,7 +62,7 @@ export default function DeliverySummary({
                 </Text>
               </View>
             );
-          })}
+          })} */}
         </View>
         <View className="mb-2">
           <Text className="font-semibold mb-1">Products on trip</Text>

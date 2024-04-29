@@ -7,7 +7,7 @@ import useLocation from "../../hooks/useLocation";
 import { useFetch } from "../../hooks/api-hooks";
 import { get_geo_code_api } from "../../api/vietMapApi";
 
-function Map({ destination }) {
+function Map({ destination, setDuration, setDistance }) {
   const { coordinate: curLocation, isLoading: curLocationLoading } =
     useLocation();
 
@@ -30,13 +30,21 @@ function Map({ destination }) {
     longitudeDelta: Math.abs(toLocation.longitude - curLocation.longitude) * 3,
   };
 
+  const handleMove = (result) => {
+    const { distance, duration } = result;
+    setDistance(distance);
+    setDuration(duration);
+  };
+
   return (
     <MapView style={{ flex: 1 }} initialRegion={region}>
-      {/* <MapDirection
+      <MapDirection
         onRotate={setAngle}
         origin={curLocation}
         destination={toLocation}
-      /> */}
+        onMove={handleMove}
+      />
+
       <DestinationMarker address={destination} />
 
       {!curLocationLoading && (

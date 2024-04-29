@@ -13,12 +13,7 @@ function ReceiverBriefInfo({ className, data }) {
 
   return (
     <View className={classNames("flex-row items-center", className)}>
-      <Image
-        className="w-10 h-10 rounded-full"
-        source={{
-          uri: "https://wallpapers.com/images/featured/chelsea-fc-logo-esvpoici90jl4fpx.jpg",
-        }}
-      />
+      <Icon className="w-10 h-10 rounded-full" source={IMAGES.receiver} />
       <View className="flex-1 mx-1">
         <Text className="font-bold">{`${last_name} ${first_name}`}</Text>
         <Text className="text-xs">{formatVietnamesePhoneNumber(phone)}</Text>
