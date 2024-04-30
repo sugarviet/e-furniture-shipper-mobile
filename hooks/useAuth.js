@@ -34,7 +34,8 @@ function useAuth() {
     }
 
     const signOut = () => {
-        signOutMutation();
+        // signOutMutation();
+        clearToken();
     }
 
     return { signIn, signOut };
