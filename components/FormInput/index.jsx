@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { KeyboardAvoidingView, Text, TextInput, View } from "react-native";
 import { Controller } from "react-hook-form";
 import { classNames } from "../../utils/classNames";
 import Icon from "../Icon";

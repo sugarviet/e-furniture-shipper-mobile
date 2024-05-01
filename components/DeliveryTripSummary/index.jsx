@@ -61,7 +61,7 @@ export default function DeliverySummary({
           <Text className="font-semibold mb-1">Products on trip</Text>
           {productsOnTrip.map((product, index) => {
             return (
-              <View key={index}>
+              <View className="mb-2" key={index}>
                 <ProductBriefInfo data={product} />
               </View>
             );

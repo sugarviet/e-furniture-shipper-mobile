@@ -1,4 +1,3 @@
-import { showMessage } from "react-native-flash-message";
 import { get_check_status_delivery_api, get_delivery_trip_api_of, get_done_delivery_trip_api, get_start_delivery_trip_api, get_update_order_inside_trip_status } from "../api/deliveryApi";
 import { useAuthStore } from "../stores/useAuthStore";
 import { useUpdate } from "./api-hooks";
@@ -9,18 +8,18 @@ function useDeliveryTrip(id, order_id) {
     const { token } = useAuthStore();
     const { account_id } = token;
 
-    const { mutate: startDeliveryTrip } = useUpdate(get_start_delivery_trip_api(id), undefined, () => { success_message("start your delivery trip") }, (error) => { error_message(error.message) }, get_delivery_trip_api_of(account_id))
+    const { mutate: startDeliveryTrip } = useUpdate(get_start_delivery_trip_api(id), undefined, () => { success_message("Start your delivery trip") }, (error) => { error_message(error.message) }, get_delivery_trip_api_of(account_id))
 
     const { mutate: completeDeliveryTrip } = useUpdate(
         get_done_delivery_trip_api(id),
         undefined,
-        () => { success_message("complete your delivery trip") },
+        () => { success_message("Complete your delivery trip"); },
         (error) => { error_message(error.message) },
         get_check_status_delivery_api()
     );
 
     const { mutate: updateOrderStatus } = useUpdate(
-        get_update_order_inside_trip_status(id), undefined, () => { success_message("complete current delivery trip") }, (error) => { error_message(error.message) }, get_delivery_trip_api_of(account_id)
+        get_update_order_inside_trip_status(id), undefined, () => { success_message("Complete current delivery trip") }, (error) => { error_message(error.message) }, get_delivery_trip_api_of(account_id)
     );
 
     const confirmOrderDelivered = (note) => {
