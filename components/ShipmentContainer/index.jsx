@@ -9,7 +9,7 @@ import { get_delivery_trip_api_of } from "../../api/deliveryApi";
 
 function ShipmentContainer({ className }) {
   const { token } = useAuthStore();
-  const { account_id } = token;
+  const { account_id } = token || {};
   const { data, isLoading } = useFetchAuth(
     get_delivery_trip_api_of(account_id)
   );

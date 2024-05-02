@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { KeyboardAvoidingView, SafeAreaView, View } from "react-native";
 import { useForm } from "react-hook-form";
 import LinkableButton from "../LinkableButton";
 import FormInput from "../FormInput";

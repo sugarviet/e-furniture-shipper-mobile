@@ -1,9 +1,16 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { classNames } from "../../utils/classNames";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { PAYMENT_METHOD } from "../../constants/enum";
 import capitalCaseToSnackCase from "../../constants/capitalCaseToSnackCase";
+import { useUpdate } from "../../hooks/api-hooks";
+import { get_make_order_payment_api } from "../../api/orderApi";
+import * as WebBrowser from "expo-web-browser";
+import * as Linking from "expo-linking";
+import useNotification from "../../hooks/useNotification";
+import { get_delivery_trip_api_of } from "../../api/deliveryApi";
+import { useAuthStore } from "../../stores/useAuthStore";
 
 export default function DeliveryTripDetail({ className, data }) {
   const { order, payment } = data;
@@ -12,11 +19,45 @@ export default function DeliveryTripDetail({ className, data }) {
   const { order_products, order_checkout } = order;
   const { paid } = order_checkout;
   const { must_paid, paid_amount } = paid;
+  const { token } = useAuthStore();
+
+  const { error_message } = useNotification();
+
+  const { mutate: payAgain } = useUpdate(
+    get_make_order_payment_api(order._id),
+    undefined,
+    async (data) => {
+      await WebBrowser.openBrowserAsync(data.data.metaData);
+      WebBrowser.dismissBrowser();
+      go_to_home();
+    },
+    (error) => {
+      error_message(error.message);
+    },
+    get_delivery_trip_api_of(token.account_id)
+  );
+  const url = Linking.useURL();
 
   return (
     <View className={classNames(className)}>
       <View>
-        <Text className="font-semibold mb-1">Order information</Text>
+        <View className="flex-row justify-between items-center">
+          <Text className="font-semibold mb-2">Order information</Text>
+          {must_paid - paid_amount !== 0 && (
+            <TouchableOpacity
+              onPress={() => {
+                const body = {
+                  returnUrl: url + "/--/delivery",
+                  cancelUrl: url + "/--/delivery",
+                };
+                payAgain(body);
+              }}
+              className="border p-2"
+            >
+              <Text className="text-xs">Payment QR Code</Text>
+            </TouchableOpacity>
+          )}
+        </View>
         {order_products.map((item, index) => {
           const { product, quantity } = item;
           const { name } = product;
