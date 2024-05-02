@@ -15,7 +15,7 @@ function ReceiverBriefInfo({ className, data }) {
     <View className={classNames("flex-row items-center", className)}>
       <Icon className="w-10 h-10 rounded-full" source={IMAGES.receiver} />
       <View className="flex-1 mx-1">
-        <Text className="font-bold">{`${last_name} ${first_name}`}</Text>
+        <Text className="font-bold">{`${first_name} ${last_name}`}</Text>
         <Text className="text-xs">{formatVietnamesePhoneNumber(phone)}</Text>
       </View>
       <View className="flex-row items-center">

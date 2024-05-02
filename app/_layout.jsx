@@ -6,7 +6,7 @@ import { LogBox } from "react-native";
 import FlashMessage from "react-native-flash-message";
 
 const RootLayout = () => {
-  // LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs();
   const queryClient = new QueryClient();
 
   return (
