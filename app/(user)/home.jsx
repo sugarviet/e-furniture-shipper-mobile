@@ -1,18 +1,42 @@
-import { SafeAreaView, Text, View } from "react-native";
+import {
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import UserBriefInfo from "../../components/UserBriefInfo";
 import LogoutButton from "../../components/LogoutButton";
 import { useDeliveryStore } from "../../stores/useDeliveryStore";
 import ShipmentContainer from "../../components/ShipmentContainer";
 import PickUpPackageContainer from "../../components/PickUpPackageContainer";
+import { useFetchAuth } from "../../hooks/api-hooks";
+import { useEffect } from "react";
+import { get_check_status_delivery_api } from "../../api/deliveryApi";
 
 function HomeScreen() {
-  const { currentState } = useDeliveryStore();
+  const { currentState, setCurrentState } = useDeliveryStore();
+  const { data, isLoading, refetch } = useFetchAuth(
+    get_check_status_delivery_api()
+  );
+
+  useEffect(() => {
+    if (!data || isLoading) return;
+    setCurrentState(data);
+  }, [data, isLoading]);
 
   const STATE_RENDER = [
     {},
     {
       ContainerComponent: (
-        <PickUpPackageContainer className="flex-1 px-8 justify-end" />
+        <ScrollView
+          refreshControl={
+            <RefreshControl onRefresh={refetch} refreshing={false} />
+          }
+          className="pt-40"
+        >
+          <PickUpPackageContainer className="flex-1 px-8 justify-end" />
+        </ScrollView>
       ),
     },
     {

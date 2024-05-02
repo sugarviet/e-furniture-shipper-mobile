@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, Text, View } from "react-native";
 import PickUpPackage from "../PickUpPackage";
 import AnimationView from "../AnimationView";
 import { ANIMATIONS } from "../../constants/animations";
