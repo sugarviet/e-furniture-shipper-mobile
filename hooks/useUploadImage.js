@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import useNotification from "./useNotification";
 
 function useUploadImage() {
     const [imgURL, setImgUrl] = useState("");
+    const { error_message } = useNotification();
 
     const uploadImage = async (photo, callback) => {
         try {
@@ -22,6 +24,7 @@ function useUploadImage() {
             setImgUrl(data.data.display_url);
             callback(data.data.display_url)
         } catch (error) {
+            error_message(error.message)
             console.error(error);
         }
     };
